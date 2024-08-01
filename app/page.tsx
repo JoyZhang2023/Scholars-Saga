@@ -12,6 +12,7 @@ export default function Home() {
           <code className={styles.code}>app/page.tsx</code>
         </p>
         <Link href="counselor-dashboard">Counselor Dashboard</Link>
+        <Link href="student-search">Student Search</Link>
       </div>
     </main>
   );

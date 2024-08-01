@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Link from 'next/link';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -15,19 +16,22 @@ import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
+import next from 'next';
 
 const drawerWidth = 240;
+
+const navItems = ["Home", "Student Search", "Class Search", "Settings"];
+const links = ["counselor-dashboard", "student-search", "", ""];  //TODO: update links
 
 interface Props {
   /**
    * Injected by the documentation to work in an iframe.
-   * Remove this when copying and pasting into your project.
    */
   window?: () => Window;
 }
 
 export default function NavbarCounselor(props: Props) {
-  const { window } = props;
+  const { window } = props; 
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [isClosing, setIsClosing] = React.useState(false);
 
@@ -51,14 +55,16 @@ export default function NavbarCounselor(props: Props) {
       <Toolbar />
       <Divider />
       <List>
-        {['Home', 'Student Search', 'Class Search', 'Settings'].map((text, index) => (
+        {navItems.map((text, index) => (
           <ListItem key={text} disablePadding>
-            <ListItemButton>
+            <Link href={links[index]} passHref>
+              <ListItemButton key={text} onClick={handleDrawerToggle}>
               <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />} 
               </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
+                {text}
+              </ListItemButton>
+            </Link>
           </ListItem>
         ))}
       </List>
@@ -66,8 +72,6 @@ export default function NavbarCounselor(props: Props) {
     </div>
   );
 
-  // Remove this const later
-  const container = window !== undefined ? () => window().document.body : undefined;
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -90,7 +94,7 @@ export default function NavbarCounselor(props: Props) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Responsive drawer
+            Counselor Dashboard
           </Typography>
         </Toolbar>
       </AppBar>
@@ -99,9 +103,7 @@ export default function NavbarCounselor(props: Props) {
         sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
         aria-label="mailbox folders"
       >
-        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Drawer
-          container={container}
           variant="temporary"
           open={mobileOpen}
           onTransitionEnd={handleDrawerTransitionEnd}
