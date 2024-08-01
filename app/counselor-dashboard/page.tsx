@@ -9,7 +9,7 @@ import NavbarCounselor from "@/components/Navbar_counselor";
 export default function Counselor() {
     return (
         <main className={styles.main}>
-            <NavbarCounselor/>      
+            <NavbarCounselor header="Counselor Dashboard"/>      
             <Typography align="center" component="h1">
                 Counselor Dashboard Placeholder
             </Typography>  

@@ -30,8 +30,8 @@ interface Props {
   window?: () => Window;
 }
 
-export default function NavbarCounselor(props: Props) {
-  const { window } = props; 
+export default function NavbarCounselor({header}: { header: String}) {
+  /** const { window } = props; */
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [isClosing, setIsClosing] = React.useState(false);
 
@@ -94,7 +94,7 @@ export default function NavbarCounselor(props: Props) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Counselor Dashboard
+            {header}
           </Typography>
         </Toolbar>
       </AppBar>
