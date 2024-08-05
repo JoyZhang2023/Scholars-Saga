@@ -15,7 +15,7 @@ const ManageClasses: React.FC = () => {
     <main className={styles.main}>
       <NavbarAdmin header="Manage Classes"/>
       <div className={styles.container}>
-        <h1>Manage Classes</h1>
+        <h1 className={styles.header}>Manage Classes</h1>
         <form onSubmit={handleClassSubmit}>
           <label>
             Class Name:

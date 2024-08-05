@@ -30,4 +30,3 @@ const NavbarAdmin: React.FC<NavbarAdminProps> = ({ header }) => {
 };
 
 export default NavbarAdmin;
-

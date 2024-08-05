@@ -1,32 +1,32 @@
 "use client";
 import styles from "@/app/page.module.css";
-import * as React from 'react';
-import Toolbar from '@mui/material/Toolbar';
+import React from 'react';
 import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
 import Link from 'next/link';
-import NavbarAdmin from "@/components/Navbar_admin";
-import withAdminAuth from '@/hoc/withAdminAuth';
 
 const Admin: React.FC = () => {
   return (
     <main className={styles.main}>
-      <NavbarAdmin header="Admin Dashboard"/>
-      <Typography align="center" component="h1" className={styles.header}>
-        Admin Dashboard
-      </Typography>
-      <Toolbar />
-      <div className={styles.links}>
-        <ul className={styles.linkList}>
-          <li>
-            <Link href="/admin/create-user">Create New User</Link>
-          </li>
-          <li>
-            <Link href="/admin/manage-classes">Manage Classes</Link>
-          </li>
-        </ul>
+      <header className={styles.header}>
+        <Typography align="center" component="h1" className={styles.headerText}>
+          Admin Dashboard
+        </Typography>
+      </header>
+      <div className={styles.content}>
+        <Link href="/admin/create-user" passHref>
+          <Button variant="contained" color="primary" className={styles.button}>
+            Create New User
+          </Button>
+        </Link>
+        <Link href="/admin/manage-classes" passHref>
+          <Button variant="contained" color="primary" className={styles.button}>
+            Manage Classes
+          </Button>
+        </Link>
       </div>
     </main>
   );
 };
 
-export default withAdminAuth(Admin);
+export default Admin;

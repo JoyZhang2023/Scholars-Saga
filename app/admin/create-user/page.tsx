@@ -16,7 +16,7 @@ const CreateUser: React.FC = () => {
     <main className={styles.main}>
       <NavbarAdmin header="Create New User"/>
       <div className={styles.container}>
-        <h1>Create New User</h1>
+        <h1 className={styles.header}>Create New User</h1>
         <form onSubmit={handleUserSubmit}>
           <label>
             User Type:
