@@ -13,6 +13,9 @@
   overflow: hidden; /* Preventing content overflow (namely the buttons) */
 }
 
+.profile-box {
+  background-color: #FCFCE1;
+}
 .profilePicture {
   margin-bottom: 5px;
 }
