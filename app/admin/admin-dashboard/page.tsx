@@ -1,32 +1,34 @@
-"use client";
-import styles from "@/app/page.module.css";
-import React from 'react';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import Link from 'next/link';
+"use client"; // Ensure this is a client component
 
-const Admin: React.FC = () => {
+import React from 'react';
+import Link from 'next/link';
+import ToDosCard from './ToDosCard';
+import ResourcesCard from './ResourcesCard';
+import UpcomingEventsCard from './UpcomingEventsCard';
+import BulletinsCard from './BulletinsCard';
+
+const AdminDashboard = () => {
   return (
-    <main className={styles.main}>
-      <header className={styles.header}>
-        <Typography align="center" component="h1" className={styles.headerText}>
-          Admin Dashboard
-        </Typography>
-      </header>
-      <div className={styles.content}>
-        <Link href="/admin/create-user" passHref>
-          <Button variant="contained" color="primary" className={styles.button}>
-            Create New User
-          </Button>
-        </Link>
-        <Link href="/admin/manage-classes" passHref>
-          <Button variant="contained" color="primary" className={styles.button}>
-            Manage Classes
-          </Button>
-        </Link>
+    <div className="admin-page">
+      <nav className="navbar">
+        <div className="navbar-menu">
+          <Link href="/admin/manage-users" className="navbar-menu-item">Manage Users</Link>
+          <Link href="/admin/manage-classes" className="navbar-menu-item">Manage Classes</Link>
+        </div>
+        <div className="navbar-title">Admin Dashboard</div>
+        <div className="navbar-buttons">
+          <Link href="/home" className="nav-button">Home</Link>
+          <button className="nav-button">Log Out</button>
+        </div>
+      </nav>
+      <div className="cards-container">
+        <ToDosCard />
+        <ResourcesCard />
+        <UpcomingEventsCard />
+        <BulletinsCard />
       </div>
-    </main>
+    </div>
   );
 };
 
-export default Admin;
+export default AdminDashboard;
