@@ -1,0 +1,63 @@
+/* components/styles/ProfileCard.module.css */
+.profileCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid #778D66;
+  padding: 18px;
+  border-radius: 18px;
+  background-color: #FCFCE1;
+  width: 200px;
+  height: 35vh;
+  box-sizing: border-box;
+  overflow: hidden; /* Preventing content overflow (namely the buttons) */
+}
+
+<<<<<<< HEAD
+.profile-box {
+  background-color: #FCFCE1;
+}
+=======
+>>>>>>> f7cf6d60c88759ba6a4a177f6ecbfdab89e8f56e
+.profilePicture {
+  margin-bottom: 5px;
+}
+
+.profileButtons {
+  width: 100%; 
+  box-sizing: border-box;
+}
+
+.profileButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.profileButton:hover {
+  background-color: #0056b3;
+}
+
+.newAccountButton {
+  background-color: #B0D295;
+}
+
+.newAccountButton:hover {
+  background-color: #7c9667;
+<<<<<<< HEAD
+}
+=======
+}
+>>>>>>> f7cf6d60c88759ba6a4a177f6ecbfdab89e8f56e
