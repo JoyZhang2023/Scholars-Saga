@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+'use client'
+
+=======
 import Image from "next/image";
 import styles from "./page.module.css";
 import Link from "next/link";
@@ -18,6 +22,7 @@ export default function Home() {
   );
 'use client'
 
+>>>>>>> f7cf6d60c88759ba6a4a177f6ecbfdab89e8f56e
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
