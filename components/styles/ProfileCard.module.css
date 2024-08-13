@@ -13,9 +13,12 @@
   overflow: hidden; /* Preventing content overflow (namely the buttons) */
 }
 
+<<<<<<< HEAD
 .profile-box {
   background-color: #FCFCE1;
 }
+=======
+>>>>>>> f7cf6d60c88759ba6a4a177f6ecbfdab89e8f56e
 .profilePicture {
   margin-bottom: 5px;
 }
@@ -53,4 +56,8 @@
 
 .newAccountButton:hover {
   background-color: #7c9667;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> f7cf6d60c88759ba6a4a177f6ecbfdab89e8f56e
