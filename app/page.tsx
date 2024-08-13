@@ -8,6 +8,19 @@ import Link from "next/link";
 
 
 export default function Home() {
+<<<<<<< HEAD
+    return (
+        <main className={styles.main}>
+            <div className={styles.description}>
+                <p>
+                    Get started by editing&nbsp;
+                    <code className={styles.code}>app/page.tsx</code>
+                </p>
+                <Link href="student-dashboard">Student Dashboard</Link>
+            </div>
+        </main>
+    );
+=======
   return (
     <main className={styles.main}>
       <div className={styles.description}>
@@ -34,4 +47,5 @@ export default function Index() {
   }, [router]);
 
   return null;
+>>>>>>> f6e757d9bb3620e9abc8653d4db1b8e34df8bd36
 }
