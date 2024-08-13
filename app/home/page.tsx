@@ -46,8 +46,4 @@ export default function Home() {
       
     </main>
   );
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> f7cf6d60c88759ba6a4a177f6ecbfdab89e8f56e
