@@ -2,6 +2,8 @@
 import  NavbarStudentPrototype from '@/components/Navbar_student';
 import React, { FC } from 'react';
 import {CssBaseline, ThemeOptions, Toolbar, ThemeProvider, createTheme} from '@mui/material';
+import ToggleForm from "@/components/Create_users_admin";
+import {Box} from "@mui/system";
 
 
 
@@ -28,12 +30,16 @@ import {CssBaseline, ThemeOptions, Toolbar, ThemeProvider, createTheme} from '@m
 const StudentDashboard = () => {
     return (
         <ThemeProvider theme={themeOptions}>
-            <div>
-                <CssBaseline />
-                <NavbarStudentPrototype />
+            <CssBaseline />
+            <Box display="flex" height="100vh">
+                <Box width="250px">
+                    <NavbarStudentPrototype />
+                </Box>
 
-
-            </div>
+                <Box flexGrow={1} p={3} pt = {4}>
+                    <ToggleForm />
+                </Box>
+            </Box>
         </ThemeProvider>
     );
 };
