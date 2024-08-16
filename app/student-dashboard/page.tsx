@@ -4,6 +4,7 @@ import React, { FC } from 'react';
 import {CssBaseline, ThemeOptions, Toolbar, ThemeProvider, createTheme} from '@mui/material';
 import ToggleForm from "@/components/Create_users_admin";
 import {Box} from "@mui/system";
+import ManageUsers from "@/components/Manage_users_admin";
 
 
 
@@ -37,7 +38,7 @@ const StudentDashboard = () => {
                 </Box>
 
                 <Box flexGrow={1} p={3} pt = {4}>
-                    <ToggleForm />
+                    <ManageUsers />
                 </Box>
             </Box>
         </ThemeProvider>
