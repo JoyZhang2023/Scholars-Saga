@@ -1,0 +1,68 @@
+/* styles/ProfilePage.module.css */
+.profile-page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #4A582B;
+    min-height: 100vh;
+    width: 100%; /* Ensure it takes full width */
+}
+
+.banner {
+    position: relative;
+    background-color: #778D66; /* Background color surrounding the image */
+    width: 100%;
+    height: 26vh; /* Adjust to your preferred height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; /* Hide overflow of image */
+}
+
+.banner-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Adjust opacity as needed */
+    z-index: 1;
+}
+
+.long-banner-image {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: translate(-50%, -50%); /* Centers image horizontally and vertically */
+    z-index: 0;
+}
+
+.banner-text {
+    position: relative; /* Text over the image */
+    color: white;
+    font-size: 4rem;
+    font-weight: bold;
+    z-index: 2;
+}
+
+.profile-container {
+    background-color: #FCFCE1;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px; 
+    width: 80%;
+}
+
+.profileBox {
+    background-color: #D6D6B8;
+    width: 100%; 
+    max-width: 800px;
+    padding: 20px; 
+    margin: 20px auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px; 
+}
