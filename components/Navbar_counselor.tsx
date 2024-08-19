@@ -17,6 +17,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import next from 'next';
+import SignOut from './SignOut';
 
 const drawerWidth = 240;
 
@@ -69,6 +70,11 @@ export default function NavbarCounselor({header}: { header: String}) {
         ))}
       </List>
       <Divider />
+      <List>
+          <ListItem disablePadding>
+              <SignOut />
+          </ListItem>
+      </List>
     </div>
   );
 

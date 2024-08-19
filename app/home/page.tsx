@@ -2,13 +2,24 @@ import React from 'react';
 import Link from 'next/link';
 import ProfileCard from '../../components/ProfileCard';
 import '../../styles/global.css';
+import { getServerSession } from "next-auth";
+import SignOut from "@/components/SignOut";
 
-export default function Home() {
+export default async function Home() {
+  const session = await getServerSession();
   return (
     <main className="home-page">
 
       <div className="layout">
         <ProfileCard />
+        <nav>
+          {!!session && <SignOut />}
+          {!session &&
+          <Link href="/auth/sign-in">
+            Sign In
+          </Link>
+          }
+        </nav>
         <div className="content">
 
           <div className="banner-row">

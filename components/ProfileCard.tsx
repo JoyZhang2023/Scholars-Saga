@@ -15,10 +15,10 @@ const ProfileCard: React.FC = () => {
         />
       </div>
       <div className={styles.profileButtons}>
-        <Link href="/login" className={styles.profileButton}>
+        <Link href="/auth/sign-in" className={styles.profileButton}>
           Login
         </Link>
-        <Link href="/signup" className={`${styles.profileButton} ${styles.newAccountButton}`}>
+        <Link href="/auth/sign-up" className={`${styles.profileButton} ${styles.newAccountButton}`}>
           New Account
         </Link>
       </div>

@@ -18,7 +18,7 @@ export default function SignInForm() {
     console.log({ response });
     
     if (!response?.error) {
-      router.push('/');
+      router.push('/counselor/dashboard');
       router.refresh();
     }
   };
