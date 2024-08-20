@@ -9,28 +9,36 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@apollo/server": "^4.11.0",
+    "@as-integrations/next": "^3.1.0",
     "@emotion/react": "^11.13.0",
     "@emotion/styled": "^11.13.0",
+    "@graphql-yoga/node": "^3.9.1",
     "@mui/icons-material": "^5.16.6",
     "@mui/material": "^5.16.6",
     "@mui/x-date-pickers": "^7.12.0",
     "dayjs": "^1.11.12",
     "lucide-react": "^0.418.0",
-    "@emotion/react": "^11.13.0",
-    "@emotion/styled": "^11.13.0",
-    "@mui/material": "^5.16.6",
+    "@prisma/client": "^5.18.0",
+    "graphql": "^16.9.0",
     "next": "14.2.5",
+    "next-auth": "^4.24.7",
+    "node": "^22.6.0",
     "react": "^18",
     "react-calendar": "^5.0.0",
     "react-dom": "^18",
     "react-pro-sidebar": "^1.1.0"
   },
   "devDependencies": {
-    "@types/node": "^20.14.10",
-    "@types/react": "^18.3.3",
+    "@types/graphql": "^14.5.0",
+    "@types/node": "20.14.10",
+    "@types/react": "18.3.3",
     "@types/react-dom": "^18",
+    "@types/react-relay": "^16.0.6",
+    "apollo": "^2.11.1",
     "eslint": "^8",
     "eslint-config-next": "14.2.5",
+    "prisma": "^5.18.0",
     "typescript": "5.5.3"
   }
 }
