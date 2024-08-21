@@ -28,7 +28,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         return localStorage.getItem('secondaryColor') || '#5e2138';
     });
 
-    // Save theme to localStorage when it changes
+    // LocalStorage to hold the new colors
     useEffect(() => {
         localStorage.setItem('primaryColor', primaryColor);
     }, [primaryColor]);

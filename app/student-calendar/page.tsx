@@ -11,7 +11,7 @@ const StudentCalendar = () => {
     return (
         <Box sx={{ display: 'flex', width: '100%', height: '100vh' }}>
             <NavbarStudentPrototype />
-            <Box sx={{ flexGrow: 1, p: 3, mt: 5 }}> // Ensure this Box is visible
+            <Box sx={{ flexGrow: 1, p: 3, mt: 5 }}>
                 <Theme_Component />
             </Box>
         </Box>
