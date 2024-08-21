@@ -1,23 +1,58 @@
 'use client';
-import { createTheme } from '@mui/material/styles';
+import React, {createContext, useState, useMemo, useContext, useEffect} from 'react';
+import { ThemeProvider as MUIThemeProvider, createTheme } from '@mui/material';
 
-const theme = createTheme( {
-    palette: {
-        mode: 'light',
-        primary: {
-            main: '#6c6c40',
-        },
-        secondary: {
-            main: '#5e2138',
-        },
-        background: {
-            default: '#4A582B',
-            paper: '#778D66',
-        },
-        text: {
-            primary: '#fcfce1',
-        },
-    },
-});
+interface ThemeContextType {
+    primaryColor: string;
+    setPrimaryColor: (color: string) => void;
+    secondaryColor: string;
+    setSecondaryColor: (color: string) => void;
+}
 
-export default theme;
+const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
+
+export const useThemeContext = () => {
+    const context = useContext(ThemeContext);
+    if (!context) {
+        throw new Error('useThemeContext must be used within a ThemeProvider');
+    }
+    return context;
+};
+
+export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+    const [primaryColor, setPrimaryColor] = useState<string>(() => {
+        return localStorage.getItem('primaryColor') || '#6c6c40';
+    });
+
+    const [secondaryColor, setSecondaryColor] = useState<string>(() => {
+        return localStorage.getItem('secondaryColor') || '#5e2138';
+    });
+
+    // Save theme to localStorage when it changes
+    useEffect(() => {
+        localStorage.setItem('primaryColor', primaryColor);
+    }, [primaryColor]);
+
+    useEffect(() => {
+        localStorage.setItem('secondaryColor', secondaryColor);
+    }, [secondaryColor]);
+
+    const theme = useMemo(() => createTheme({
+        palette: {
+            primary: {
+                main: primaryColor,
+            },
+            secondary: {
+                main: secondaryColor,
+            },
+        },
+    }), [primaryColor, secondaryColor]);
+
+    return (
+        <ThemeContext.Provider value={{ primaryColor, setPrimaryColor, secondaryColor, setSecondaryColor }}>
+            <MUIThemeProvider theme={theme}>
+                {children}
+            </MUIThemeProvider>
+        </ThemeContext.Provider>
+    );
+};
