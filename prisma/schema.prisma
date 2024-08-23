@@ -36,3 +36,17 @@ model students {
   degree_path     String?   @db.VarChar(100)
   profile_picture String?   @db.VarChar(255)
 }
+
+model users {
+  id         Int    @id
+  email      String @unique(map: "unique_email") @db.VarChar(100)
+  password   String @db.VarChar(25)
+  role       String @db.VarChar(1)
+  profile_id Int?
+}
+
+model appointments {
+  id           Int    @id @default(auto()) @map("_id") @db.ObjectId
+  selectedDate String
+  selectedTime String
+}
