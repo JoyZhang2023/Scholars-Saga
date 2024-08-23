@@ -1,6 +1,10 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { compare } from "bcrypt";
+import { PrismaClient, users } from "@prisma/client";
+import { NextResponse } from "next/server";
+
+const prisma = new PrismaClient();
 
 const handler = NextAuth({
   session: {
@@ -12,39 +16,38 @@ const handler = NextAuth({
 
   providers: [
       CredentialsProvider({
-      name: 'Credentials',
-      credentials: {
-        email: { label: 'Email', type: 'email'},
-        password: {label: 'Password', type: 'password'},
-      },
-      async authorize(credentials, req) {
-        // Add logic here to look up the user from the credentials supplied
-        const user1 = { id: '1', email: 'info@gmail.com', password: 'Abc123', role: 'Admin' };
-        const user2 = { id: '2', email: 'admin@gmail.com', password: 'Abc124', role: 'Counselor' };
+        name: 'Credentials',
+        credentials: {
+          email: {},
+          password: {},
+        },
+        async authorize(credentials, req) {
+          console.log({credentials});
+          // query date from db
+          const getUser: users | null = await prisma.users.findUnique({
+            where: {
+              email: credentials?.email,
+            },
+          })
+          
+          console.log({getUser});
 
-        // query date from db
-        //const response = await sql`
-        //SELECT * FROM users WHERE email=${credentials?.email}`;
-        // const user = response.rows[0];
+          if(getUser) {
+            const passwordCorrect = await compare(credentials?.password || '', getUser.password);
+            console.log({passwordCorrect});
+            if(passwordCorrect) {
 
-        // const passwordCorrect = await compare(credentials?.password || '', user.password);
-        const passwordCorrect = (user1.password == credentials?.password);
-        
-        console.log(credentials?.password);
-        console.log({passwordCorrect});
-
-        if(passwordCorrect) {
-
-          return {
-            id: user1.id,
-            email: user1.email,
-            role: user1.role,
+              return {
+                id: getUser.id,
+                email: getUser.email,
+                role: getUser.role,
+              } as any
+            }
           }
-        }
 
-        return null;
+          return NextResponse.json({message: 'log in fail'});;
 
-      },
+        },
     }),
   ],
 });

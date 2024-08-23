@@ -2,18 +2,24 @@
 
 import { FormEvent } from "react";
 
-export default async function SignUpForm() {
+export default function SignUpForm() {
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
-        const response = await fetch(`../api/auth/sign-up`, {
+        const response = await fetch('/api/auth/sign-up', {
             method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify({
                 email: formData.get('email'),
                 password: formData.get('password'),
+                role: formData.get('role'),
             }),
         });
-        console.log({ response });
+
+        const data = await response.json();
+        console.log(data);
     }
 
     return (
@@ -27,6 +33,12 @@ export default async function SignUpForm() {
             <div>
                 <label>Enter your password:</label>
                 <input type="password" name="password" id="password"/>
+            </div>
+            <div>
+                <select name="role">
+                    <option value="C">Counselor</option>
+                    <option value="S">Student</option>
+                </select>
             </div>
             <button className="display: table-row" type="submit">Sign Up</button>
         </form>

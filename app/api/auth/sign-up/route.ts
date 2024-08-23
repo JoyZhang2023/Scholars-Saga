@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { hash } from 'bcrypt';
-import prisma from "@/lib/prisma";
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
 
 export async function POST(request: Request) {
 
@@ -9,15 +11,21 @@ export async function POST(request: Request) {
         // validate email and password, maybe zod
 
         const hashedpassword = await hash(password, 10);
-        
-        // sql insert user into db
-        // const response = await sql` 
-        //     INSERT INTO users (email, password, role)
-        //     VALUES (${email}, ${hashedpassword}, ${role})`;
+
+        const user = await prisma.users.create({
+            data: {
+                id: 10002,
+                email: email,
+                password: hashedpassword,
+                role: role
+            }
+        })
+
+        return NextResponse.json(user, { status: 200});
         
     } catch (e) {
         console.log({ e });
     }
     
-    return NextResponse.json({message: 'success'});
+    return NextResponse.json({message: 'secussess'});
 }
