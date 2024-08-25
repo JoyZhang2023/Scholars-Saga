@@ -8,33 +8,38 @@ datasource db {
 }
 
 model classes {
-  id            Int       @id
-  class_section String?   @db.VarChar(100)
+  id            Int          @id
+  class_section String?      @db.VarChar(100)
   class_number  Int?
-  section_time  DateTime? @db.Time(6)
-  professor     String?   @db.VarChar(100)
+  section_time  DateTime?    @db.Time(6)
+  professor     String?      @db.VarChar(100)
   class_size    Int?
+  enrollment    enrollment[]
 }
 
 model counselors {
-  id              Int     @id
-  first_name      String? @db.VarChar(100)
-  last_name       String? @db.VarChar(100)
-  email           String? @db.VarChar(100)
-  user_type       String? @db.VarChar(25)
+  id              Int     @id @default(autoincrement())
+  first_name      String  @db.VarChar(100)
+  last_name       String  @db.VarChar(100)
+  email           String  @unique @db.VarChar(255)
+  user_type       String  @db.VarChar(50)
   department      String? @db.VarChar(100)
-  office_location String? @db.VarChar(100)
+  office_location String? @db.VarChar(255)
+  password        String  @db.VarChar(255)
+  profile_picture String? @db.VarChar(255)
 }
 
 model students {
-  id              Int       @id
-  first_name      String?   @db.VarChar(50)
-  last_name       String?   @db.VarChar(50)
-  email           String?   @db.VarChar(100)
-  user_type       String?   @db.VarChar(25)
-  enrollment_date DateTime? @db.Date
-  degree_path     String?   @db.VarChar(100)
-  profile_picture String?   @db.VarChar(255)
+  id              Int          @id
+  first_name      String?      @db.VarChar(50)
+  last_name       String?      @db.VarChar(50)
+  email           String?      @db.VarChar(100)
+  user_type       String?      @db.VarChar(25)
+  enrollment_date DateTime?    @db.Date
+  degree_path     String?      @db.VarChar(100)
+  profile_picture String?      @db.VarChar(255)
+  password        String?      @db.VarChar(255)
+  enrollment      enrollment[]
 }
 
 model appointments {
@@ -44,11 +49,11 @@ model appointments {
 }
 
 model users {
-  id         Int    @id
-  email      String @unique(map: "unique_email")
-  password   String
+  id         Int    @id @default(autoincrement())
+  email      String @unique(map: "unique_email") @db.VarChar(100)
+  password   String @db.VarChar
   role       String @db.VarChar(1)
-  profile_Id Int?
+  profile_id Int?
 }
 
 model theme_settings {
@@ -58,4 +63,15 @@ model theme_settings {
   text_primary       String? @db.VarChar(7)
   text_secondary     String? @db.VarChar(7)
   background_default String? @db.VarChar(7)
+}
+
+model enrollment {
+  id            Int       @id @default(autoincrement())
+  student_id    Int
+  class_id      Int
+  registered_at DateTime? @default(now()) @db.Timestamp(6)
+  classes       classes   @relation(fields: [class_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  students      students  @relation(fields: [student_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@unique([student_id, class_id])
 }

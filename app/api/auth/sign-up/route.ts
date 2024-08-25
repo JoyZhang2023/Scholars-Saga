@@ -12,9 +12,14 @@ export async function POST(request: Request) {
 
         const hashedpassword = await hash(password, 10);
 
+        const lastUser = await prisma.users.findFirst({
+            orderBy: {
+                id: 'desc',
+            },
+        })
+
         const user = await prisma.users.create({
             data: {
-                id: 10002,
                 email: email,
                 password: hashedpassword,
                 role: role
@@ -27,5 +32,5 @@ export async function POST(request: Request) {
         console.log({ e });
     }
     
-    return NextResponse.json({message: 'secussess'});
+    return NextResponse.json({message: 'sign-up fail'});
 }
