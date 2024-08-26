@@ -1,8 +1,11 @@
 'use client';
 import React, { createContext, useState, useMemo, useContext, useEffect } from 'react';
 import { ThemeProvider as MUIThemeProvider, createTheme } from '@mui/material/styles';
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
+import axios from 'axios';
 
-// Define the type for the theme context
+// Define ThemeContext here
 interface ThemeContextType {
     primaryColor: string;
     setPrimaryColor: (color: string) => void;
@@ -16,10 +19,10 @@ interface ThemeContextType {
     setBackgroundDefault: (color: string) => void;
 }
 
-// Create the context
+// Create a ThemeContext
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
-// Custom hook for consuming the theme context
+// Created a hook for the ThemeContext
 export const useThemeContext = () => {
     const context = useContext(ThemeContext);
     if (!context) {
@@ -28,35 +31,62 @@ export const useThemeContext = () => {
     return context;
 };
 
-// ThemeProvider component
+// Retrieves the theme from the backend database
+const fetchThemeSettings = async () => {
+    try {
+        const response = await axios.get('/api/theme');
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching theme settings', error);
+        return null;
+    }
+};
+
+// Saves the inputted theme into the backend
+const saveThemeSettings = async (themeSettings: any) => {
+    try {
+        await axios.post('/api/theme', themeSettings);
+    } catch (error) {
+        console.error('Error saving theme settings', error);
+    }
+};
+
+// ThemeProvider component, what will be used to actually modify the theme
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const [primaryColor, setPrimaryColor] = useState<string>(() => localStorage.getItem('primaryColor') || '#6c6c40');
-    const [secondaryColor, setSecondaryColor] = useState<string>(() => localStorage.getItem('secondaryColor') || '#5e2138');
-    const [textPrimary, setTextPrimary] = useState<string>(() => localStorage.getItem('textPrimary') || '#000000');
-    const [textSecondary, setTextSecondary] = useState<string>(() => localStorage.getItem('textSecondary') || '#757575');
-    const [backgroundDefault, setBackgroundDefault] = useState<string>(() => localStorage.getItem('backgroundDefault') || '#f4f6f8');
+    const [primaryColor, setPrimaryColor] = useState<string>('#6c6c40');
+    const [secondaryColor, setSecondaryColor] = useState<string>('#5e2138');
+    const [textPrimary, setTextPrimary] = useState<string>('#000000');
+    const [textSecondary, setTextSecondary] = useState<string>('#757575');
+    const [backgroundDefault, setBackgroundDefault] = useState<string>('#f4f6f8');
+    const [isLoaded, setIsLoaded] = useState(false);
 
     useEffect(() => {
-        localStorage.setItem('primaryColor', primaryColor);
-    }, [primaryColor]);
+        const loadTheme = async () => {
+            const theme = await fetchThemeSettings();
+            if (theme) {
+                setPrimaryColor(theme.primary_color || '#6c6c40');
+                setSecondaryColor(theme.secondary_color || '#5e2138');
+                setTextPrimary(theme.text_primary || '#000000');
+                setTextSecondary(theme.text_secondary || '#757575');
+                setBackgroundDefault(theme.background_default || '#f4f6f8');
+            }
+            setIsLoaded(true);
+        };
+        loadTheme();
+    }, []);
 
     useEffect(() => {
-        localStorage.setItem('secondaryColor', secondaryColor);
-    }, [secondaryColor]);
+        if (isLoaded) {
+            saveThemeSettings({
+                primary_color: primaryColor,
+                secondary_color: secondaryColor,
+                text_primary: textPrimary,
+                text_secondary: textSecondary,
+                background_default: backgroundDefault
+            });
+        }
+    }, [primaryColor, secondaryColor, textPrimary, textSecondary, backgroundDefault, isLoaded]);
 
-    useEffect(() => {
-        localStorage.setItem('textPrimary', textPrimary);
-    }, [textPrimary]);
-
-    useEffect(() => {
-        localStorage.setItem('textSecondary', textSecondary);
-    }, [textSecondary]);
-
-    useEffect(() => {
-        localStorage.setItem('backgroundDefault', backgroundDefault);
-    }, [backgroundDefault]);
-
-    // Memoize theme to prevent unnecessary recalculations
     const theme = useMemo(() => createTheme({
         palette: {
             primary: {
@@ -74,6 +104,14 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
             },
         },
     }), [primaryColor, secondaryColor, textPrimary, textSecondary, backgroundDefault]);
+
+    if (!isLoaded) {
+        return (
+            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+                <CircularProgress />
+            </Box>
+        );
+    }
 
     return (
         <ThemeContext.Provider value={{

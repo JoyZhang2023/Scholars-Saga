@@ -36,3 +36,26 @@ model students {
   degree_path     String?   @db.VarChar(100)
   profile_picture String?   @db.VarChar(255)
 }
+
+model theme_settings {
+  id                 Int     @id @default(autoincrement())
+  primary_color      String? @db.VarChar(7)
+  secondary_color    String? @db.VarChar(7)
+  text_primary       String? @db.VarChar(7)
+  text_secondary     String? @db.VarChar(7)
+  background_default String? @db.VarChar(7)
+}
+
+model users {
+  id         Int    @id
+  email      String @unique(map: "unique_email") @db.VarChar(100)
+  password   String @db.VarChar(25)
+  role       String @db.VarChar(1)
+  profile_id Int?
+}
+
+model appointments {
+  id           Int    @id
+  selectedDate String
+  selectedTime String
+}

@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
+import Button from '@mui/material/Button';
 
 const ThemeChanger: React.FC = () => {
     const {
@@ -18,6 +19,34 @@ const ThemeChanger: React.FC = () => {
         const input = document.getElementById(inputId) as HTMLInputElement;
         if (input) {
             input.click();
+        }
+    };
+
+    const handleSave = async () => {
+        const themeSettings = {
+            primaryColor,
+            secondaryColor,
+            textPrimary,
+            textSecondary,
+            backgroundDefault,
+        };
+
+        try {
+            const response = await fetch('/api/theme', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(themeSettings),
+            });
+
+            if (response.ok) {
+                console.log('Theme settings saved successfully');
+            } else {
+                console.error('Failed to save theme settings');
+            }
+        } catch (error) {
+            console.error('Error while saving theme settings:', error);
         }
     };
 
@@ -140,6 +169,10 @@ const ThemeChanger: React.FC = () => {
                         onClick={() => handleColorBoxClick('background-color-input')}
                     />
                 </Box>
+
+                <Button variant="contained" onClick={handleSave} sx={{ marginTop: 2 }}>
+                    Save Theme Settings
+                </Button>
             </Box>
         </Paper>
     );
