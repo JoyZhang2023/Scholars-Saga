@@ -6,6 +6,7 @@ import dayjs, {Dayjs} from "dayjs";
 import { Typography } from "@mui/material";
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
+import type {} from '@mui/x-date-pickers/themeAugmentation';
 
 export default function Booking() {
     const [selectedDate, setSelectedDate] = useState<Dayjs | null>(null);
@@ -37,16 +38,19 @@ export default function Booking() {
     }
 
     return (
-        <Box className="max-w-4x1 mx-auto justify-center align-middle ">
+        <Box>
             <Typography variant="h3" component="h2">
                 Schedule Appointment with Counselor
             </Typography>
-            <Box className="w-full">
+            <Box>
                 <DateCalendar 
-                disablePast
+                 disablePast
+                 defaultValue={dayjs('2024-8-30')}
                  value={selectedDate}
                  onChange={(newDate) => setSelectedDate(newDate)}
                 />
+            </Box>
+            <Box>
                 <TimePicker 
                  views={["hours", "minutes"]}
                  value={selectedTime}
@@ -54,6 +58,7 @@ export default function Booking() {
                 />
             </Box>
             <Button 
+             sx={{ mt: 3 }}
              variant="contained" 
              size="small"
              onClick={handleBooking}
