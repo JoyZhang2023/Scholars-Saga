@@ -22,21 +22,17 @@ const handler = NextAuth({
           password: {},
         },
         async authorize(credentials, req) {
-          console.log({credentials});
-          // query date from db
+
           const getUser: users | null = await prisma.users.findUnique({
             where: {
               email: credentials?.email,
             },
           })
-          
-          console.log({getUser});
 
           if(getUser) {
             const passwordCorrect = await compare(credentials?.password || '', getUser.password);
             console.log({passwordCorrect});
             if(passwordCorrect) {
-
               return {
                 id: getUser.id,
                 email: getUser.email,
@@ -45,7 +41,7 @@ const handler = NextAuth({
             }
           }
 
-          return NextResponse.json({message: 'log in fail'});;
+          return NextResponse.json({message: 'log in fail'});
 
         },
     }),

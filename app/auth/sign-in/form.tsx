@@ -18,7 +18,8 @@ export default function SignInForm() {
     console.log({ response });
     
     if (!response?.error) {
-      router.push('/counselor/dashboard');
+      router.push('/admin/admin-dashboard');
+      // router.push('/counselor/dashboard');
       router.refresh();
     }
   };
