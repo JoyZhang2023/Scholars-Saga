@@ -23,11 +23,15 @@ const handler = NextAuth({
         },
         async authorize(credentials, req) {
 
+          console.log({credentials});
+
           const getUser: users | null = await prisma.users.findUnique({
             where: {
               email: credentials?.email,
             },
           })
+          
+          console.log({getUser});
 
           if(getUser) {
             const passwordCorrect = await compare(credentials?.password || '', getUser.password);
