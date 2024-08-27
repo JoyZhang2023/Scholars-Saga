@@ -11,7 +11,6 @@ export async function POST(request: Request) {
 
     const user = await prisma.appointments.create({
         data: {
-            id: 1,
             selectedDate: date,
             selectedTime: time
         }
