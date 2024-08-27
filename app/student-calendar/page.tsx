@@ -5,6 +5,7 @@ import {CssBaseline, ThemeOptions, Toolbar, ThemeProvider, createTheme} from '@m
 import DateCalendarViews from "@/components/Calendar_student";
 import {Box} from "@mui/system";
 import Register_Component from "@/components/Register_Component";
+import Educational_Plan from "@/components/Educational_Plan";
 
 
 //Testing out themes here, in final implementation this would not be here
@@ -35,7 +36,7 @@ const StudentCalendar = () => {
             <Box sx={{ display: 'flex', width: '100%', height: '100vh' }}>
                 <NavbarStudentPrototype />
                 <Box sx={{ flexGrow: 1, p: 3, mt: 6 }}>
-                    <Register_Component/>
+                    <Educational_Plan/>
                 </Box>
             </Box>
         </ThemeProvider>
