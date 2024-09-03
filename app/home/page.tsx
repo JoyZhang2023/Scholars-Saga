@@ -1,16 +1,20 @@
+"use client";
+
 import React from 'react';
 import Link from 'next/link';
 import ProfileCard from '../../components/ProfileCard';
-import '../../styles/global.css';
+import { Box, Container, Typography, Grid, Link as MUILink } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import { getServerSession } from "next-auth";
 import SignOut from "@/components/SignOut";
 
 export default async function Home() {
+  const theme = useTheme(); // TODO: incorporate MUI theme when ready
+
   const session = await getServerSession();
   return (
-    <main className="home-page">
-
-      <div className="layout">
+    <Container maxWidth="lg">
+      <Box sx={{ display: 'flex', gap: 2, flexDirection: 'row' }}>
         <ProfileCard />
         <nav>
           {!!session && <SignOut />}
@@ -20,41 +24,73 @@ export default async function Home() {
           </Link>
           }
         </nav>
-        <div className="content">
 
-          <div className="banner-row">
-            <div className="banner">
-              <img 
-                src="/autumn banner.jpg" 
-                alt="Autumn Banner" 
-                className="banner-image" 
-              />
-              <div className="banner-text">
-                Scholar's Saga
-              </div>
-            </div>
-            <div className="links-container">
-              <div className="links-row">
-                <Link href="/profile" className="link">Profile</Link>
-                <Link href="/home" className="link">Home</Link>
-                <Link href="/about" className="link">About</Link>
-                <Link href="/bulletins" className="link">Bulletins</Link>
-                <Link href="/resources" className="link">Resources</Link>
-                <Link href="/tasks" className="link">Tasks</Link>
-                <Link href="/updates" className="link">Updates</Link>
-              </div>
-            </div>
-          </div>
+        <Box sx={{ flex: 1 }}>
+          {/* Banner Section */}
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              backgroundColor: theme.palette.background.paper,
+              padding: theme.spacing(2),
+              marginBottom: theme.spacing(3),
+            }}
+          >
+            {/* <Box
+              component="img"
+              src="/autumn banner.jpg"
+              alt="Autumn Banner"
+              sx={{
+                height: 100,
+                objectFit: 'cover',
+                borderRadius: theme.shape.borderRadius,
+              }}
+            /> */}
+            <Typography variant="h4" sx={{ marginLeft: theme.spacing(2) }}>
+              Scholar's Saga
+            </Typography>
+          </Box>
 
-          <div className="placeholder-container">
-            <div className="placeholder-column">Latest Articles</div>
-            <div className="placeholder-column">Saga's News</div>
-            <div className="placeholder-column">Important Tasks</div>
-          </div>
-        </div>
+          {/* Links Row */}
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', marginBottom: theme.spacing(3) }}>
+            {['About', 'Bulletins', 'Resources', 'Tasks', 'Updates'].map((text) => (
+              <MUILink
+                key={text}
+                component={Link}
+                href={`/${text.toLowerCase()}`}
+                underline="none"
+                sx={{
+                  padding: theme.spacing(1),
+                  textTransform: 'uppercase',
+                  fontWeight: 'bold',
+                  color: theme.palette.primary.main,
+                }}
+              >
+                {text}
+              </MUILink>
+            ))}
+          </Box>
 
-      </div>
-      
-    </main>
+          {/* Placeholder Content */}
+          <Grid container spacing={3}>
+            {['Latest Articles', 'Saga\'s News', 'Important Tasks'].map((section) => (
+              <Grid item xs={12} sm={4} key={section}>
+                <Box
+                  sx={{
+                    padding: theme.spacing(2),
+                    backgroundColor: theme.palette.background.default,
+                    borderRadius: theme.shape.borderRadius,
+                    boxShadow: theme.shadows[2],
+                  }}
+                >
+                  <Typography variant="h6">{section}</Typography>
+                </Box>
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
+      </Box>
+    </Container>
   );
 }
