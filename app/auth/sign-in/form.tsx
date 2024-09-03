@@ -17,11 +17,11 @@ export default function SignInForm() {
 
     console.log({ response });
     
-    if (!response?.error) {
-      router.push('/admin/admin-dashboard');
-      // router.push('/counselor/dashboard');
-      router.refresh();
-    }
+    // if (response?.error) {
+    //   router.push('/admin/admin-dashboard');
+    //   router.push('/counselor/dashboard');
+    //   router.refresh();
+    // }
   };
   return (
     <form

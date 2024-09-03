@@ -1,55 +1,6 @@
 import NextAuth from "next-auth";
-import CredentialsProvider from "next-auth/providers/credentials";
-import { compare } from "bcrypt";
-import { PrismaClient, users } from "@prisma/client";
-import { NextResponse } from "next/server";
+import { authOptions } from "@/lib/auth";
 
-const prisma = new PrismaClient();
-
-const handler = NextAuth({
-  session: {
-    strategy: 'jwt',
-  },
-  pages: {
-    signIn: '/auth/sign-in',
-  },
-
-  providers: [
-      CredentialsProvider({
-        name: 'Credentials',
-        credentials: {
-          email: {},
-          password: {},
-        },
-        async authorize(credentials, req) {
-
-          console.log({credentials});
-
-          const getUser: users | null = await prisma.users.findUnique({
-            where: {
-              email: credentials?.email,
-            },
-          })
-          
-          console.log({getUser});
-
-          if(getUser) {
-            const passwordCorrect = await compare(credentials?.password || '', getUser.password);
-            console.log({passwordCorrect});
-            if(passwordCorrect) {
-              return {
-                id: getUser.id,
-                email: getUser.email,
-                role: getUser.role,
-              } as any
-            }
-          }
-
-          return NextResponse.json({message: 'log in fail'});
-
-        },
-    }),
-  ],
-});
+const handler = NextAuth(authOptions);
 
 export {handler as GET, handler as POST}
