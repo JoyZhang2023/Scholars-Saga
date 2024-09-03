@@ -41,39 +41,9 @@ model students {
 }
 
 model users {
-  id         Int     @id @default(autoincrement())
-  email      String  @unique(map: "unique_email") @db.VarChar(100)
-  password   String  @db.VarChar
-  role       String? @db.VarChar(1)
-  profile_id Int?
-}
-
-model appointments {
-  id           Int    @id @default(autoincrement())
-  selectedDate String
-  selectedTime String
-}
-
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
-model enrollment {
-  id            Int
-  student_id    Int
-  class_id      Int
-  registered_at DateTime? @default(now()) @db.Timestamp(6)
-
-  @@ignore
-}
-
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
-model theme_settings {
-  id                 Int
-  primary_color      String? @db.VarChar(7)
-  secondary_color    String? @db.VarChar(7)
-  text_primary       String? @db.VarChar(7)
-  text_secondary     String? @db.VarChar(7)
-  background_default String? @db.VarChar(7)
-
-  @@ignore
+  id       Int    @id
+  email    String @db.VarChar(100)
+  password String @db.VarChar(25)
 }
 
 model theme_settings {

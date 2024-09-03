@@ -1,0 +1,1 @@
+// This is middleware intended to protect routes and check user sessions
