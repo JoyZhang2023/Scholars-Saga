@@ -12,13 +12,13 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Toolbar from '@mui/material/Toolbar';
 import MenuIcon from '@mui/icons-material/Menu';
-import InboxIcon from '@mui/icons-material/Inbox';
-import MailIcon from '@mui/icons-material/Mail';
+import LogoutIcon from '@mui/icons-material/Logout';
+import { useAuth } from '../context/authContext';  // Import useAuth to handle the logout
 
 const drawerWidth = 240;
 
 const navItems = ["Home", "Staff Directory", "Class Search", "Settings"];
-const links = ["home", "staff-search", "class-search", "settings"];  //TODO: update links
+const links = ["home", "staff-search", "class-search", "settings"];  // TODO: update links
 
 interface Props {
   window?: () => Window;
@@ -27,6 +27,7 @@ interface Props {
 export default function Navbar_ProfilePage() {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [isClosing, setIsClosing] = React.useState(false);
+  const { logout } = useAuth();
 
   const handleDrawerClose = () => {
     setIsClosing(true);
@@ -62,6 +63,16 @@ export default function Navbar_ProfilePage() {
         ))}
       </List>
       <Divider />
+      
+      {/* Push the logout button to the bottom */}
+      <Box sx={{ flexGrow: 1 }} />
+      <Divider />
+      <ListItemButton onClick={logout} sx={{ mt: 'auto' }}>
+        <ListItemIcon>
+          <LogoutIcon />
+        </ListItemIcon>
+        <ListItemText primary="Log out" />
+      </ListItemButton>
     </div>
   );
 
