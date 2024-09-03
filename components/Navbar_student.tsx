@@ -27,16 +27,19 @@ const routes = ['/', '/profile', '/student-calendar', '/books', '/textbooks', '/
 
 // Called prototype because I was messing around with the icons/routing and search, but that might not
 // be located within the same file in the final implementation
+
+// IMPORTANT: YOU CAN CHANGE WHAT COLOR IS USED TO IMPACT THE COMPONENTS ACCORDING TO A GIVEN THEME LIKE 'text.primary
+// TO IMPACT THE SIDE NAVBAR TEXT WITH THE OTHER TEXT COLORINGS
 export default function NavbarStudentPrototype() {
      return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
             <AppBar
                 position="fixed"
-                sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` }}
+                sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px`, color: 'text.primary' }}
             >
                 <Toolbar>
-                    <Typography variant="h6" noWrap component="div" align={"center"}>
+                    <Typography variant="h6" noWrap component="div" align={"center"} color= {'text.primary'}>
                         Student Dashboard
                     </Typography>
                 </Toolbar>
@@ -51,7 +54,8 @@ export default function NavbarStudentPrototype() {
                         width: drawerWidth,
                         boxSizing: 'border-box',
                         display: 'flex',
-                        flexDirection: 'column'
+                        flexDirection: 'column',
+
                     },
                 }}
                 variant="permanent"
