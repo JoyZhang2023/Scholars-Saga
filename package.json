@@ -19,7 +19,7 @@
     "@mui/styled-engine-sc": "^6.0.0-alpha.18",
     "@mui/x-date-pickers": "^7.14.0",
     "@prisma/client": "^5.19.1",
-    "axios": "^1.7.4",
+    "axios": "^1.7.7",
     "bcrypt": "^5.1.1",
     "dayjs": "^1.11.13",
     "graphql": "^16.9.0",
