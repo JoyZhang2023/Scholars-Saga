@@ -6,10 +6,12 @@ import ToDosCard from './ToDosCard';
 import ResourcesCard from './ResourcesCard';
 import UpcomingEventsCard from './UpcomingEventsCard';
 import BulletinsCard from './BulletinsCard';
+import { AdminUser } from './AdminProfile';
 
 const AdminDashboard = () => {
   return (
     <div className="admin-page">
+      <AdminUser />
       <nav className="navbar">
         <div className="navbar-menu">
           <Link href="/admin/manage-users" className="navbar-menu-item">Manage Users</Link>

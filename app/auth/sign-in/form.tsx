@@ -1,11 +1,17 @@
 'use client';
 
 import { signIn } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
+import { redirect, useRouter } from 'next/navigation';
 import { FormEvent } from 'react';
+import { useSession } from 'next-auth/react';
+import type { User } from 'next-auth';
+
+type Props = {
+  user: User,
+  pagetype: string,
+}
 
 export default function SignInForm() {
-  const router = useRouter();
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -15,14 +21,26 @@ export default function SignInForm() {
       redirect: false,
     });
 
-    console.log({ response });
-    
-    // if (response?.error) {
-    //   router.push('/admin/admin-dashboard');
-    //   router.push('/counselor/dashboard');
-    //   router.refresh();
-    // }
+    // const { status } = useSession({
+    //   required: true,
+    //   onUnauthenticated() {
+    //     // unauthenticated user, handled here
+    //     console.log('Sign in fail')
+    //   },
+    // })
   };
+
+  const { data: session} = useSession({
+    required: true,
+    onUnauthenticated() {
+      redirect('/home')
+    }
+  })
+
+  if (session?.user?.role === 'Admin') {
+    redirect('/admin/admin-dashboard')
+  }
+
   return (
     <form
       onSubmit={handleSubmit}

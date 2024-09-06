@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { AuthProvider } from '../context/authContext';import {ThemeProvider} from "@/styles/theme";
+import { AuthProvider } from '../context/authContext';
+import {ThemeProvider} from "@/styles/theme";
+import { Provider } from "@/context/sessionProvider"; //get user data from session
 
 
 
@@ -22,13 +24,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <AuthProvider>
+        <Provider>
           <div className='flex'>
-              <ThemeProvider>
-                {children}
-              </ThemeProvider>
-      </div>
-        </AuthProvider>
+            {children}
+              {/* <ThemeProvider>
+                need to move children back for themeprovider
+              </ThemeProvider> */}
+          </div>
+        </Provider>
       </body>
     </html>
   )
