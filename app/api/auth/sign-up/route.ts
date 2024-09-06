@@ -7,7 +7,7 @@ const prisma = new PrismaClient();
 export async function POST(request: Request) {
 
     try {
-        const {email, password, role} = await request.json();
+        const {email, password, role, profile_id} = await request.json();
         // validate email and password, maybe zod
 
         const hashedpassword = await hash(password, 10);
@@ -22,7 +22,8 @@ export async function POST(request: Request) {
             data: {
                 email: email,
                 password: hashedpassword,
-                role: role
+                role: role,
+                profile_id: profile_id,
             }
         })
 

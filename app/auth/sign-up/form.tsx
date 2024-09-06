@@ -15,6 +15,7 @@ export default function SignUpForm() {
                 email: formData.get('email'),
                 password: formData.get('password'),
                 role: formData.get('role'),
+                profile_id: formData.get('profile_id'),
             }),
         });
 
@@ -39,6 +40,10 @@ export default function SignUpForm() {
                     <option value="C">Counselor</option>
                     <option value="S">Student</option>
                 </select>
+            </div>
+            <div>
+                <label>Enter user profile id</label>
+                <input type="text" name="profile_id"></input>
             </div>
             <button className="display: table-row" type="submit">Sign Up</button>
         </form>

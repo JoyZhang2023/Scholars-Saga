@@ -16,7 +16,7 @@ import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import next from 'next';
+import { UnlinkIcon } from 'lucide-react';
 import SignOut from './SignOut';
 
 const drawerWidth = 240;
@@ -69,12 +69,19 @@ export default function NavbarCounselor({header}: { header: String}) {
           </ListItem>
         ))}
       </List>
+      <Box sx={{ flexGrow: 1 }} />
+                <Divider />
+                <List>
+                    <ListItem disablePadding>
+                        <ListItemButton>
+                            <ListItemIcon>
+                                <UnlinkIcon />
+                            </ListItemIcon>
+                            <SignOut />
+                        </ListItemButton>
+                    </ListItem>
+                </List>
       <Divider />
-      <List>
-          <ListItem disablePadding>
-              <SignOut />
-          </ListItem>
-      </List>
     </div>
   );
 

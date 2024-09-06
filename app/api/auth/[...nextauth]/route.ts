@@ -30,29 +30,29 @@ export const authOptions: NextAuthOptions = {
               },
             });
             
-            console.log({getUser});
-
-            if (!getUser) throw new Error("email or password is not correct");
+            console.log("user find", {getUser});
   
             var passwordCorrect = false;
-  
-            if( credentials?.email == 'admin@scholarsaga.com') {
-              if (credentials.password == 'Admin123') {
-                passwordCorrect = true;
-              }
-            } else {
-                passwordCorrect = await compare(credentials?.password || '', getUser.password);
-            }
-            console.log({passwordCorrect});
 
-            if(!passwordCorrect) throw new Error("Email or password is not correct");
-               
-            return {
-              id: getUser.id + '',
-              email: getUser.email,
-              role: getUser.role,
-              profile_id: getUser.profile_id,
-            };
+            if (getUser) {
+              if( credentials?.email == 'admin@scholarsaga.com') {
+                if (credentials.password == 'Admin123') {
+                  passwordCorrect = true;
+                }
+              } else {
+                  passwordCorrect = await compare(credentials?.password || '', getUser.password);
+              }
+              console.log({passwordCorrect});
+  
+              if(!passwordCorrect) throw new Error("Email or password is not correct");
+                 
+              return {
+                id: getUser.id + '',
+                email: getUser.email,
+                role: getUser.role,
+                profile_id: getUser.profile_id,
+              } as any;
+            }
           },
         }),
     ],

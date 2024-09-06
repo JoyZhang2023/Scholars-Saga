@@ -2,14 +2,26 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Box, Button, Avatar, Typography } from '@mui/material';
-import { useAuth } from '../context/authContext';
+import SignOut from './SignOut';
+import { useSession } from 'next-auth/react';
+import { redirect } from 'next/navigation';
+import { setEngine } from 'crypto';
 
 const ProfileCard: React.FC = () => {
-  const { user, logout } = useAuth();
+  const { data: session} = useSession();
 
-  const handleLogout = () => {
-    logout();
-  };
+  const user = {
+    id: 1,
+    first_name: '',
+    last_name: '',
+    email: '',
+    user_type: '',
+    profile_picture: '',
+  }
+
+  if (session) {
+    user.first_name = session.user.role
+  }
 
   return (
     <Box
@@ -49,10 +61,10 @@ const ProfileCard: React.FC = () => {
         <Button
           variant="outlined"
           color="secondary"
-          onClick={handleLogout}
           sx={{ mt: 1 }}
+          href='/auth/sign-in'
         >
-          Logout
+          Sign In
         </Button>
       )}
     </Box>

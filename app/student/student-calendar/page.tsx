@@ -5,8 +5,6 @@ import {Box} from "@mui/system";
 import Theme_Component from "@/components/Theme_Component";
 
 
-
-
 const StudentCalendar = () => {
     return (
         <Box sx={{ display: 'flex', width: '100%', height: '100vh' }}>

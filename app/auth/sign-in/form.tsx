@@ -4,12 +4,6 @@ import { signIn } from 'next-auth/react';
 import { redirect, useRouter } from 'next/navigation';
 import { FormEvent } from 'react';
 import { useSession } from 'next-auth/react';
-import type { User } from 'next-auth';
-
-type Props = {
-  user: User,
-  pagetype: string,
-}
 
 export default function SignInForm() {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -21,25 +15,23 @@ export default function SignInForm() {
       redirect: false,
     });
 
-    // const { status } = useSession({
-    //   required: true,
-    //   onUnauthenticated() {
-    //     // unauthenticated user, handled here
-    //     console.log('Sign in fail')
-    //   },
-    // })
   };
 
-  const { data: session} = useSession({
-    required: true,
-    onUnauthenticated() {
-      redirect('/home')
-    }
-  })
+  const { data: session} = useSession();
+  const router = useRouter();
 
   if (session?.user?.role === 'Admin') {
-    redirect('/admin/admin-dashboard')
+    router.push('/admin/admin-dashboard');
+    router.refresh();
+  } else if (session?.user.role === 'Counselor') {
+    router.push('/counselor/dashboard');
+    router.refresh();
+  } else if (session?.user.role === 'Student') {
+    router.push('/student/student-dashboard')
+    router.refresh();
   }
+
+  
 
   return (
     <form
