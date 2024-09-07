@@ -39,12 +39,7 @@
   .card:hover {
     border-color: #0070f3;
   }
-  
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 2rem;
-}
+
 
 /* Header styling */
 .header {

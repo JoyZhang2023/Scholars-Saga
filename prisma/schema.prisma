@@ -8,13 +8,21 @@ datasource db {
 }
 
 model classes {
-  id            Int          @id
-  class_section String?      @db.VarChar(100)
-  class_number  Int?
-  section_time  DateTime?    @db.Time(6)
-  professor     String?      @db.VarChar(100)
-  class_size    Int?
-  enrollment    enrollment[]
+  id                         Int                  @id @default(autoincrement())
+  class_section              String               @db.VarChar(5)
+  professor                  String               @db.VarChar(100)
+  class_size                 Int?
+  class_category             String               @db.VarChar(50)
+  class_day                  class_day_enum[]
+  class_end_time             DateTime             @db.Time(6)
+  class_name                 String               @db.VarChar(100)
+  class_start_time           DateTime             @db.Time(6)
+  current_enrollments        Int?
+  fulfill_major_requirements String[]
+  terms_offered              terms_offered_enum[]
+  description                String               @db.VarChar
+  credits                    Int?                 @db.SmallInt
+  edu_plan_courses           edu_plan_courses[]
 }
 
 model counselors {
@@ -30,48 +38,93 @@ model counselors {
 }
 
 model students {
-  id              Int          @id
-  first_name      String?      @db.VarChar(50)
-  last_name       String?      @db.VarChar(50)
-  email           String?      @db.VarChar(100)
-  user_type       String?      @db.VarChar(25)
-  enrollment_date DateTime?    @db.Date
-  degree_path     String?      @db.VarChar(100)
-  profile_picture String?      @db.VarChar(255)
-  password        String?      @db.VarChar(255)
-  enrollment      enrollment[]
+  id              Int        @id @default(autoincrement())
+  first_name      String     @db.VarChar(100)
+  last_name       String     @db.VarChar(100)
+  email           String     @unique @db.VarChar(255)
+  user_type       String     @db.VarChar(50)
+  enrollment_date DateTime   @db.Date
+  degree_path     String     @db.VarChar(100)
+  profile_picture String?    @db.VarChar(255)
+  password        String     @db.VarChar(255)
+  edu_plan        edu_plan[]
 }
 
 model appointments {
-  id           Int    @id
-  selectedDate String
+  id           Int      @id @default(autoincrement())
+  selectedDate DateTime
   selectedTime String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime
 }
 
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
 model enrollment {
-  id            Int       @id @default(autoincrement())
+  id            Int       @id
   student_id    Int
   class_id      Int
   registered_at DateTime? @default(now()) @db.Timestamp(6)
-  classes       classes   @relation(fields: [class_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  students      students  @relation(fields: [student_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
-  @@unique([student_id, class_id])
+  @@ignore
 }
 
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
 model theme_settings {
-  id                 Int     @id @default(autoincrement())
+  id                 Int     @id
   primary_color      String? @db.VarChar(7)
   secondary_color    String? @db.VarChar(7)
   text_primary       String? @db.VarChar(7)
   text_secondary     String? @db.VarChar(7)
   background_default String? @db.VarChar(7)
+
+  @@ignore
 }
 
 model users {
-  id         Int    @id @default(autoincrement())
-  email      String @unique(map: "unique_email") @db.VarChar(100)
-  password   String @db.VarChar
-  role       String @db.VarChar(1)
+  id         Int        @id @default(autoincrement())
+  email      String     @unique(map: "unique_email") @db.VarChar(100)
+  password   String     @db.VarChar
+  role       role_enum?
   profile_id Int?
+}
+
+model edu_plan {
+  id               Int                @id @default(autoincrement())
+  year             String             @db.VarChar
+  created_at       DateTime?          @db.Timestamp(6)
+  student_id       Int
+  plan_name        String             @db.VarChar(100)
+  students         students           @relation(fields: [student_id], references: [id], onDelete: Cascade, map: "student_id_relation")
+  edu_plan_courses edu_plan_courses[]
+}
+
+model edu_plan_courses {
+  id          Int       @id @default(autoincrement())
+  edu_plan_id Int?
+  class_id    Int?
+  term        String?   @db.VarChar
+  year        String?   @db.VarChar
+  classes     classes?  @relation(fields: [class_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "class_id_relation")
+  edu_plan    edu_plan? @relation(fields: [edu_plan_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "edu_plan_relation")
+}
+
+enum class_day_enum {
+  Monday
+  Tuesday
+  Wednesday
+  Thursday
+  Friday
+}
+
+enum terms_offered_enum {
+  Winter
+  Spring
+  Summer
+  Fall
+}
+
+enum role_enum {
+  Admin
+  Counselor
+  Student
 }

@@ -13,8 +13,24 @@ export async function GET(request: NextRequest) {
             where: {
                 class_section: {
                     contains: searchTerm,
-                    mode: 'insensitive', // Case-insensitive search
+                    mode: 'insensitive',
                 },
+            },
+            select: {
+                id: true,
+                class_name: true,
+                class_section: true,
+                credits: true,
+                description: true,
+                fulfill_major_requirements: true,
+                terms_offered: true,
+                class_day: true,
+                class_start_time: true,
+                class_end_time: true,
+                class_category: true,
+                class_size: true,
+                current_enrollments: true,
+                professor: true
             },
         });
 
