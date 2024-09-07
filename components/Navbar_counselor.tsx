@@ -18,6 +18,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { UnlinkIcon } from 'lucide-react';
 import SignOut from './SignOut';
+import { Button } from '@mui/material';
 
 const drawerWidth = 240;
 
@@ -69,19 +70,6 @@ export default function NavbarCounselor({header}: { header: String}) {
           </ListItem>
         ))}
       </List>
-      <Box sx={{ flexGrow: 1 }} />
-                <Divider />
-                <List>
-                    <ListItem disablePadding>
-                        <ListItemButton>
-                            <ListItemIcon>
-                                <UnlinkIcon />
-                            </ListItemIcon>
-                            <SignOut />
-                        </ListItemButton>
-                    </ListItem>
-                </List>
-      <Divider />
     </div>
   );
 
@@ -140,6 +128,9 @@ export default function NavbarCounselor({header}: { header: String}) {
           open
         >
           {drawer}
+          <Button startIcon={<UnlinkIcon />}>
+            <SignOut />
+          </Button>
         </Drawer>
       </Box>
     </Box>

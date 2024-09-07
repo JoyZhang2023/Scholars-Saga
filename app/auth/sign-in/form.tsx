@@ -1,7 +1,7 @@
 'use client';
 
 import { signIn } from 'next-auth/react';
-import { redirect, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { FormEvent } from 'react';
 import { useSession } from 'next-auth/react';
 
@@ -19,6 +19,7 @@ export default function SignInForm() {
 
   const { data: session} = useSession();
   const router = useRouter();
+  console.log("sign in check session", session);
 
   if (session?.user?.role === 'Admin') {
     router.push('/admin/admin-dashboard');

@@ -10,6 +10,8 @@ export async function POST(request: Request) {
         const {email, password, role, profile_id} = await request.json();
         // validate email and password, maybe zod
 
+        var user_id = Number(profile_id);
+
         const hashedpassword = await hash(password, 10);
 
         const lastUser = await prisma.users.findFirst({
@@ -23,7 +25,7 @@ export async function POST(request: Request) {
                 email: email,
                 password: hashedpassword,
                 role: role,
-                profile_id: profile_id,
+                profile_id: user_id,
             }
         })
 

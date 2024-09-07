@@ -37,13 +37,13 @@ export default function SignUpForm() {
             </div>
             <div>
                 <select name="role">
-                    <option value="C">Counselor</option>
-                    <option value="S">Student</option>
+                    <option value="Counselor">Counselor</option>
+                    <option value="Student">Student</option>
                 </select>
             </div>
             <div>
                 <label>Enter user profile id</label>
-                <input type="text" name="profile_id"></input>
+                <input type="number" name="profile_id"></input>
             </div>
             <button className="display: table-row" type="submit">Sign Up</button>
         </form>

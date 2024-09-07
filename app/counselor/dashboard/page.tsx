@@ -24,7 +24,9 @@ export default async function Counselor() {
 }
 
 async function getCounselor() {
-    const {data: session } = useSession();
+    const {data: session } = useSession({
+        required: true
+    });
     const currentUser = await prisma.counselors.findFirst({
         where: { id: session?.user.profile_id}
     })
