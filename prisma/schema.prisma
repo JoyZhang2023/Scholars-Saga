@@ -23,6 +23,21 @@ model classes {
   description                String               @db.VarChar
   credits                    Int?                 @db.SmallInt
   edu_plan_courses           edu_plan_courses[]
+  id                         Int                  @id @default(autoincrement())
+  class_section              String               @db.VarChar(5)
+  professor                  String               @db.VarChar(100)
+  class_size                 Int?
+  class_category             String               @db.VarChar(50)
+  class_day                  class_day_enum[]
+  class_end_time             DateTime             @db.Time(6)
+  class_name                 String               @db.VarChar(100)
+  class_start_time           DateTime             @db.Time(6)
+  current_enrollments        Int?
+  fulfill_major_requirements String[]
+  terms_offered              terms_offered_enum[]
+  description                String               @db.VarChar
+  credits                    Int?                 @db.SmallInt
+  edu_plan_courses           edu_plan_courses[]
 }
 
 model counselors {
