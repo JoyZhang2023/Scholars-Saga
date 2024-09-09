@@ -1,7 +1,7 @@
 
 <p align="center"> 
   <br/>
-  <img src="https://github.com/user-attachments/assets/f1c55401-8edb-4f90-bd29-f8ace0f850ef" width="300">
+  <img src="https://github.com/user-attachments/assets/c8e0a326-231d-4c89-b064-d5d228c8b94d" width="300">
 </p>
 
 <h3 align="center">All in one solution for academic planning</h3>
