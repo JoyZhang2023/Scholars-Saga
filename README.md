@@ -59,7 +59,6 @@ Access the demo [here](https://__). The demo is running on _.
 ## 
 
 
-## Repository activity
+## Contributing
 
-![Activities]("https://repobeats.axiom.co link")
 
