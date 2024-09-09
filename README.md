@@ -1,10 +1,7 @@
+
 <p align="center"> 
-  <br/>  
-  <img src="![SCHOLAR’S](https://github.com/user-attachments/assets/f1c55401-8edb-4f90-bd29-f8ace0f850ef)" width="300">
   <br/>
-  <h> Scholar's Saga <h>
-  <br/>  
-  <br/>   
+  <img src="https://github.com/user-attachments/assets/f1c55401-8edb-4f90-bd29-f8ace0f850ef" width="300">
 </p>
 
 <h3 align="center">All in one solution for academic planning</h3>
