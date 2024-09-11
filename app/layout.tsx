@@ -26,10 +26,9 @@ export default function RootLayout({
       <body className={inter.className}>
         <Provider>
           <div className='flex'>
-            {children}
-              {/* <ThemeProvider>
-                need to move children back for themeprovider
-              </ThemeProvider> */}
+              <ThemeProvider>
+                {children}
+              </ThemeProvider>
           </div>
         </Provider>
       </body>
