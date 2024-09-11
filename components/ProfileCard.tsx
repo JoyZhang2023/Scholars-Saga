@@ -47,26 +47,24 @@ const ProfileCard: React.FC = () => {
         />
       </Avatar>
       <Typography variant="h6" gutterBottom>
-        {user ? `Welcome, ${user.first_name}!` : 'Welcome!'}
+        {user.first_name !== '' ? `Welcome, ${user.first_name}!` : 'Welcome!'}
       </Typography>
       <Button
-        variant="contained"
+        variant="outlined"
         color="primary"
         component={Link}
         href={user ? "/profile" : "/login"}
       >
         {user ? "View Profile" : "Login"}
       </Button>
-      {user && (
         <Button
-          variant="outlined"
-          color="secondary"
+          variant="contained"
+          color="primary"
           sx={{ mt: 1 }}
           href='/auth/sign-in'
         >
           Sign In
         </Button>
-      )}
     </Box>
   );
 };
