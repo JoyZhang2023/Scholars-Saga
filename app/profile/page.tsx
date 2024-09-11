@@ -1,51 +1,58 @@
-'use client';
+"use client";
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ProfilePage from '../../components/ProfilePage';
-import Link from 'next/link';
-import NavbarCounselor from '../../components/Navbar_ProfilePage';
-import '../../styles/global.css';
+import Navbar_ProfilePage from '../../components/Navbar_ProfilePage';
+import { Box, Container, Paper } from '@mui/material';
+import { useAuth } from '../../context/authContext';
 
-const exampleStudent = {
-    name: 'Aaron A. Aaronson',
-    email: 'aaa.111@email.com',
-    profilePictureUrl: 'aaron_profile.jpeg',
-    type: 'student' as const,
-    studentId: '123456',
-    enrollmentDate: '2021-08-23',
-    degreePath: 'Computer Science',
-};
+const ProfilePageContainer = () => {
+  const { user: authUser, logout } = useAuth();
+  const [user, setUser] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
 
-const exampleCounselor = {
-    name: 'Eliza Ellison',
-    email: 'e.ellison@school.edu',
-    profilePictureUrl: '/eliza_profile.jpg',
-    type: 'counselor' as const,
-    counselorId: '789012',
-    department: 'Psychology',
-    officeLocation: 'Sciences Building, Room 201',
-};
+  useEffect(() => {
+    const fetchUser = async () => {
+      if (!authUser) {
+        setLoading(false);
+        return;
+      }
 
-const ProfilePageContainer: React.FC = () => {
-    const isStudent = true;
+      setLoading(true);
+      try {
+        const response = await fetch(`/api/profile?id=${authUser.id}&user_type=${authUser.user_type}`);
+        if (!response.ok) {
+          throw new Error('Network response was not okay');
+        }
+        const data = await response.json();
+        setUser(data);
+      } catch (error) {
+        console.error('Error fetching user:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-    return (
-        <div className="profile-page-container">
-            <Link href="/home" passHref>
-                <div className="banner">
-                    <div className="banner-overlay"></div>
-                    <img src="/autumn banner.jpg" alt="Autumn Banner" className="long-banner-image" />
-                    <h1 className="banner-text">Personal Info</h1>
-                </div>
-            </Link>
-            <div className="profile-page-content">
-                <NavbarCounselor />
-                <ProfilePage user={exampleStudent} />
-                {/* <ProfilePage user={exampleCounselor} /> */}
-                {/* <ProfilePage user={isStudent ? exampleStudent : exampleCounselor} /> */}
-            </div>
-        </div>
-    );
+    fetchUser();
+  }, [authUser]);
+
+  if (loading) return <p>Loading...</p>;
+  if (!authUser) return <p>Please log in to view your profile.</p>;
+  if (!user) return <p>No user data found.</p>;
+
+  return (
+    <Box sx={{ display: 'flex '}}>
+      {/* Navbar on the left */}
+      <Navbar_ProfilePage />
+
+      {/* Profile page content */}
+      <Container sx={{ flexGrow: 1, mt: 2 }}>
+        <Paper elevation={3} sx={{ p: 2 }}>
+          <ProfilePage user={user} />
+        </Paper>
+      </Container>
+    </Box>
+  );
 };
 
 export default ProfilePageContainer;

@@ -1,36 +1,64 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+<p align="center"> 
+  <br/>
+  <img src="https://github.com/user-attachments/assets/c8e0a326-231d-4c89-b064-d5d228c8b94d" width="300">
+</p>
 
-First, run the development server:
+<h3 align="center">All in one solution for academic planning</h3>
+<br/>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+**Scholar's Saga** is your ideal solution for academic planning and communication. It also come with enhancement of trending AI assistant. Drag and drop education plan builder and multiple plan saver for comprehensive academic plan in all kinds of sceinario. Easy appointment scheduler provides extra flexibility to student and counselor when it comes to plan creation, plan update or even career planning. 
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+<a href="_">
+<img src="_" title="main screenshot">
+</a>
+<br/>
+## Disclaimer
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- ⚠️ The project is under **very active** development.
+- ⚠️ Expect bugs and breaking changes.
+- ⚠️ **Do not store personal information as the database is public accessible**
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+> [!NOTE]
+> You can find the main documentation, including installation guides, at https://_scholarsaga home page_.
 
-## Learn More
+## Links
 
-To learn more about Next.js, take a look at the following resources:
+- [Deployment](https://__)
+- [Demo](https://github.com/LilithLucifer3x6/Scholars-Saga/new/main?filename=README.md#demo)
+- [Features](https://github.com/LilithLucifer3x6/Scholars-Saga/new/main?filename=README.md#features)
+- [Getting-Started](#gettingstarted)
+- [Contributing](https:_)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Demo
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Access the demo [here](https://__). The demo is running on _.
 
-## Deploy on Vercel
+### Try out
+<p align="center"> 
+  <br/>  
+  <h> Please click below link to try our features with below credentials<h>
+  <a href="_">
+  <br/>  
+</p>
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Login credentials
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+| Email                 | Password   | Role    | 
+| --------------------- | -----------|---------|
+| admin@scholarsaga.com | Admin123   |Admin    | 
+| e.ellison@school.edu  | Ellison123 |Counselor| 
+
+## Features
+- Education plan duilder
+- AI assistant for education plan
+- User authentication and authorization
+- Color theme adaptor
+- Class schedule
+
+## 
+
+
+## Contributing
+
+
