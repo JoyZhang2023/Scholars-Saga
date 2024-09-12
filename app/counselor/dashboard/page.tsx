@@ -10,7 +10,7 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 const prisma = new PrismaClient();
 
 let user_id: number;
-let first_name : string;
+let first_name : string, last_name: string;
 
 
 export default async function Counselor() {
@@ -25,16 +25,17 @@ export default async function Counselor() {
             where: { id: user_id}
         })
         if (counselorFind) {
-            first_name = counselorFind?.first_name
+            first_name = counselorFind?.first_name;
+            last_name = counselorFind?.last_name
         }
     }
 
     return (
         <main className={styles.main}>
             <NavbarCounselor header = 'Counselor Dashboard' /> 
-            <Typography sx={{ paddingLeft: 10, paddingTop: 30 }}>
-                Welcome, {first_name}!
-            </Typography> 
+            <Typography variant="h6" sx={{paddingTop: '60px'}}>
+                Hello {first_name} {last_name}!
+            </Typography>
             <Toolbar />
         </main>
     );

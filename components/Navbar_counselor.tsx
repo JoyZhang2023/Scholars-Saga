@@ -23,8 +23,8 @@ import { Button } from '@mui/material';
 
 const drawerWidth = 240;
 
-const navItems = ["Home", "Student Search", "Class Search", "Settings"];
-const links = ["counselor-dashboard", "student-search", "", ""];  //TODO: update links
+const navItems = ["Home", "Profile", "Class Search", "Settings"];
+const links = ["dashboard", "profile", "", ""];  //TODO: update links
 
 interface Props {
   /**
