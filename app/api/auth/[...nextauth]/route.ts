@@ -22,8 +22,6 @@ export const authOptions: NextAuthOptions = {
             password: { label: 'Password', type:'password' },
           },
           async authorize(credentials, req) {
-  
-            console.log({credentials});
 
             const getUser = await prisma.users.findUnique({
               where: {
@@ -31,8 +29,6 @@ export const authOptions: NextAuthOptions = {
               },
             });
             
-            console.log("user find", {getUser});
-  
             var passwordCorrect = false;
 
             if (getUser) {
@@ -43,7 +39,6 @@ export const authOptions: NextAuthOptions = {
               } else {
                   passwordCorrect = await compare(credentials?.password || '', getUser.password);
               }
-              console.log({passwordCorrect});
   
               if(!passwordCorrect) throw new Error("Email or password is not correct");
                  

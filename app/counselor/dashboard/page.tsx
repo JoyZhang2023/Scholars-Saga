@@ -1,34 +1,42 @@
-"use client";
 import styles from "@/app/page.module.css";
 import * as React from 'react';
 import Toolbar from '@mui/material/Toolbar';
 import NavbarCounselor from "@/components/Navbar_counselor";
-import { useSession } from "next-auth/react";
-import { PrismaClient, counselors } from "@prisma/client";
-import ProfileCard from "@/components/ProfileCard";
 import { Typography } from "@mui/material";
+import { PrismaClient } from "@prisma/client";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 const prisma = new PrismaClient();
 
+let user_id: number;
+let first_name : string;
+
+
 export default async function Counselor() {
-    const user = await getCounselor();
+    const session = await getServerSession(authOptions);
+    if (session?.user) {
+        user_id = session.user.profile_id;
+    }
+
+    const currentUser_id = user_id;
+    if (currentUser_id) {
+        const counselorFind = await prisma.counselors.findFirst({
+            where: { id: user_id}
+        })
+        if (counselorFind) {
+            first_name = counselorFind?.first_name
+        }
+    }
+
     return (
         <main className={styles.main}>
-            <NavbarCounselor header = 'Counselor Dashboard' />        
+            <NavbarCounselor header = 'Counselor Dashboard' /> 
+            <Typography sx={{ paddingLeft: 10, paddingTop: 30 }}>
+                Welcome, {first_name}!
+            </Typography> 
             <Toolbar />
-            <Typography>
-                Welcome! {user?.first_name}
-            </Typography>
         </main>
     );
 }
-
-async function getCounselor() {
-    const {data: session } = useSession({
-        required: true
-    });
-    const currentUser = await prisma.counselors.findFirst({
-        where: { id: session?.user.profile_id}
-    })
-    return currentUser;
-}
+ 

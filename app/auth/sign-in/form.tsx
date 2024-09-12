@@ -21,7 +21,6 @@ export default function SignInForm() {
 
   const { data: session} = useSession();
   const router = useRouter();
-  console.log("sign in check session", session);
 
   if (session?.user?.role === 'Admin') {
     router.push('/admin/admin-dashboard');
@@ -33,8 +32,6 @@ export default function SignInForm() {
     router.push('/student/student-dashboard')
     router.refresh();
   }
-
-  
 
   return (
     <div>
