@@ -6,12 +6,12 @@ import prisma from '../../../lib/prisma';
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const session = await getSession({ req });
 
-  if (!session || !session.user?.email) {
+  if (!session || !session.user?.role) {
     return res.status(401).json({ message: 'Unauthorized' });
   }
 
   const user = await prisma.students.findUnique({
-    where: { email: session.user.email },
+    where: { id: session.user.profile_id },
   });
 
   if (!user) {
@@ -21,9 +21,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (req.method === 'GET') {
     const registeredClasses = await prisma.enrollment.findMany({
       where: { student_id: user.id },
-      include: { class: true },
+      include: { classes: true },
     });
-    return res.status(200).json(registeredClasses.map(e => e.class));
+    return res.status(200).json(registeredClasses.map(e => e.classes));
   }
 
   if (req.method === 'POST') {
