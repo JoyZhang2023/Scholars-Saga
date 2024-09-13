@@ -4,12 +4,12 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation'; // Import the useRouter hook
 import { Box, Container, Typography, TextField, Button } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import { useAuth } from '../../context/authContext';
+// import { useAuth } from '../../context/authContext';
 
 export default function LoginPage() {
   const theme = useTheme();
   const router = useRouter();
-  const { login } = useAuth();
+  // const { login } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
@@ -30,7 +30,7 @@ export default function LoginPage() {
         console.log('Login successful:', data);
 
         // Use login function from auth context
-        login(data.user);
+        // login(data.user);
 
         // Redirect to home page after successful login
         router.push('/');

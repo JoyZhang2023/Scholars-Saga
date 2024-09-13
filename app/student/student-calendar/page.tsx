@@ -10,8 +10,6 @@ import Theme_Component from "@/components/Theme_Component";
 import { CssBaseline } from '@mui/material';
 
 
-
-
 const StudentCalendar = () => {
     return (
         <div>
