@@ -3,7 +3,8 @@
 import React, { useState, useEffect } from 'react';
 import { TextField, Button, Container, Typography, Grid, Box, Card, CardContent, IconButton } from '@mui/material';
 import { Delete, Edit } from '@mui/icons-material';
-import { useAuth } from '../../../context/authContext';
+// import { useAuth } from '../../../context/authContext';
+import { useSession } from 'next-auth/react';
 
 interface Class {
   id: number;
@@ -23,7 +24,10 @@ interface Class {
 }
 
 const ManageClasses: React.FC = () => {
-  const { user, isAuthenticated } = useAuth();
+  // const { user, isAuthenticated } = useAuth();
+  const { data: session } = useSession({
+    required: true
+  })
   const [classes, setClasses] = useState<Class[]>([]);
   const [newClass, setNewClass] = useState<Omit<Class, 'id'>>({
     class_section: '',
@@ -100,7 +104,7 @@ const ManageClasses: React.FC = () => {
 
   const handleAddClass = async () => {
     try {
-      const { id, ...classData } = newClass; // Exclude id from the data being sent
+      const { ...classData } = newClass; // Exclude id from the data being sent
       const response = await fetch('/api/admin/classes', {
         method: 'POST',
         headers: {
@@ -143,7 +147,7 @@ const ManageClasses: React.FC = () => {
       class_section: cls.class_section,
       professor: cls.professor,
       class_category: cls.class_category,
-      class_day: Array.isArray(cls.class_day) ? cls.class_day.join(', ') : '',  // handle case where class_day is undefined or not an array
+      class_day: Array.isArray(cls.class_day) ? Array(cls.class_day.join(', ')) : [],  // handle case where class_day is undefined or not an array
       class_start_time: cls.class_start_time ? new Date(cls.class_start_time) : new Date(), 
       class_end_time: cls.class_end_time ? new Date(cls.class_end_time) : new Date(),
       description: cls.description || '', 
@@ -152,11 +156,11 @@ const ManageClasses: React.FC = () => {
       class_name: cls.class_name || '',
       class_size: cls.class_size ?? 0,
       fulfill_major_requirements: Array.isArray(cls.fulfill_major_requirements)
-        ? cls.fulfill_major_requirements.join(', ') 
-        : '',  // convert array to string or handle empty
+        ? Array(cls.fulfill_major_requirements.join(', '))
+        : [],  // convert array to string or handle empty
       terms_offered: Array.isArray(cls.terms_offered)
-        ? cls.terms_offered.join(', ')
-        : '',  // convert array to string or handle empty
+        ? Array(cls.terms_offered.join(', '))
+        : [],  // convert array to string or handle empty
     });
   };
   
@@ -177,7 +181,6 @@ const ManageClasses: React.FC = () => {
         fetchClasses();
         setEditingClass(null);
         setNewClass({
-          id: 0,
           class_section: '',
           professor: '',
           class_category: '',
@@ -273,7 +276,7 @@ const ManageClasses: React.FC = () => {
         <TextField
           label="Start Time"
           name="class_start_time"
-          value={newClass.class_start_time ? newClass.class_start_time.toISOString().slice(0, 16) : ''}
+          value={newClass.class_start_time ? newClass.class_start_time.toString().slice(0, 16) : ''}
           onChange={handleInputChange}
           fullWidth
           margin="normal"
@@ -282,7 +285,7 @@ const ManageClasses: React.FC = () => {
         <TextField
           label="End Time"
           name="class_end_time"
-          value={newClass.class_end_time ? newClass.class_end_time.toISOString().slice(0, 16) : ''}
+          value={newClass.class_end_time ? newClass.class_end_time.toString().slice(0, 16) : ''}
           onChange={handleInputChange}
           fullWidth
           margin="normal"

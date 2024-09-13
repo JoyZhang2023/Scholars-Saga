@@ -1,7 +1,8 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { useAuth } from '../../context/authContext';
+// import { useAuth } from '../../context/authContext';
+import { useSession } from 'next-auth/react';
 import { TextField, Button, Container, Typography, Card, CardContent, Grid, Box, IconButton, Drawer, Divider } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import CloseIcon from '@mui/icons-material/Close';
@@ -25,7 +26,10 @@ interface Class {
 }
 
 const ClassCatalog: React.FC = () => {
-  const { user, isAuthenticated } = useAuth();
+  // const { user, isAuthenticated } = useAuth();
+  const { data: session} = useSession({
+    required: true
+  })
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -116,7 +120,7 @@ const ClassCatalog: React.FC = () => {
         },
         body: JSON.stringify({
           classIds: Array.from(registeredClasses),
-          studentId: user?.id,
+          studentId: session?.user.profile_id,
         }),
       });
 
@@ -136,7 +140,7 @@ const ClassCatalog: React.FC = () => {
 
   return (
     <Container maxWidth="md">
-      {!isAuthenticated && mounted ? (
+      {!session && mounted ? (
         // Redirect to login if not authenticated
         <Box textAlign="center" mt={4}>
           <Typography variant="h5" gutterBottom>
