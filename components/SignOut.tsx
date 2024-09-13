@@ -1,15 +1,17 @@
 'use client';
 
+import { Button } from "@mui/material";
 import { signOut } from "next-auth/react";
-import Link from "next/link";
 
 export default function SignOut() {
     return (
-        <span onClick={()=> {
-            signOut();
-        }}>
-        <Link href={'/home'} />
-            Sign Out
-        </span>
+        <Button           
+            variant="contained"
+            color="primary"
+            sx={{ mt: 1 }}
+            onClick={()=> signOut({ callbackUrl: '/'})}
+        >
+            Sign out
+        </Button>
     )
 }
