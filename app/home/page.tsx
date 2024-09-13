@@ -63,7 +63,8 @@ export default function Home() {
               <MUILink
                 key={text}
                 component={Link}
-                href={`/${text.toLowerCase()}`}
+                // href={`/${text.toLowerCase()}`}
+                href='/splashpage'
                 underline="none"
                 sx={{
                   padding: theme.spacing(1),
@@ -89,7 +90,8 @@ export default function Home() {
                     boxShadow: theme.shadows[2],
                   }}
                 >
-                  <Typography variant="h6">{section}</Typography>
+                  <MUILink href='/splashpage' underline='hover' variant='h6'>{section}</MUILink>
+                  {/* <Typography variant="h6" >{section}</Typography> */}
                 </Box>
               </Grid>
             ))}
