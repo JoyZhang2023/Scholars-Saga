@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import React, { createContext, useState, useContext, ReactNode } from 'react';
+import React, { createContext, useState, useContext, ReactNode, useEffect } from 'react';
 
 interface User {
   id: number;
@@ -8,10 +8,13 @@ interface User {
   last_name: string | null;
   email: string | null;
   user_type: string | null;
+  token?: string;
+  role: string;
 }
 
 interface AuthContextType {
   user: User | null;
+  isAuthenticated: boolean;
   login: (user: User) => void;
   logout: () => void;
 }
@@ -21,18 +24,28 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
 
+  const isAuthenticated = !!user;
+
+  useEffect(() => {
+    // Retrieve the stored user session on initial load
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
+
   const login = (user: User) => {
     setUser(user);
-    // Optionally, store user data or token in localStorage/sessionStorage
+    localStorage.setItem('user', JSON.stringify(user)); // Save user data in localStorage
   };
 
   const logout = () => {
     setUser(null);
-    // Optionally, clear user data or token from localStorage/sessionStorage
+    localStorage.removeItem('user'); // Remove user data from localStorage
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, isAuthenticated, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
