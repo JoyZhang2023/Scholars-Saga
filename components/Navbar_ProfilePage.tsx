@@ -17,8 +17,8 @@ import { useAuth } from '../context/authContext';  // Import useAuth to handle t
 
 const drawerWidth = 240;
 
-const navItems = ["Home", "Staff Directory", "Class Catalog", "Settings"];
-const links = ["home", "staff-search", "class-catalog", "settings"];  // TODO: update links
+const navItems = ["Home", "Staff Directory", "Class Search", "Settings"];
+const links = ["home", "staff-search", "class-search", "settings"];  // TODO: update links
 
 interface Props {
   window?: () => Window;

@@ -13,7 +13,7 @@ const ResourcesCard = () => {
           <Link href="/admin/calendar">Calendar</Link>
         </li>
         <li>
-          <Link href="/class-catalog">Class Catalog</Link>
+          <Link href="/admin/class-catalog">Class Catalog</Link>
         </li>
         <li>
           <Link href="/admin/email">Email</Link>

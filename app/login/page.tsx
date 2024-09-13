@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation'; // Import the useRouter hook
 import { Box, Container, Typography, TextField, Button } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { useAuth } from '../../context/authContext';
@@ -24,19 +24,16 @@ export default function LoginPage() {
         },
         body: JSON.stringify({ email, password }),
       });
-  
+
       if (response.ok) {
         const data = await response.json();
-  
+        console.log('Login successful:', data);
+
         // Use login function from auth context
         login(data.user);
-  
-        // Redirects based on user type
-        if (data.user.user_type === 'Admin') {
-          router.push('/admin/admin-dashboard'); // Redirect admins to the admin dashboard
-        } else {
-          router.push('/');
-        }
+
+        // Redirect to home page after successful login
+        router.push('/');
       } else {
         const errorData = await response.json();
         setError(errorData.message);
@@ -46,7 +43,6 @@ export default function LoginPage() {
       setError('An error occurred during login.');
     }
   };
-  
 
   return (
     <Container maxWidth="sm">
