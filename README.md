@@ -1,15 +1,13 @@
+
 <p align="center"> 
-  <br/>  
-  <img src="_" width="300" title="Logo here">
-  <h> Scholar's Saga <h>
-  <br/>  
-  <br/>   
+  <br/>
+  <img src="https://github.com/user-attachments/assets/c8e0a326-231d-4c89-b064-d5d228c8b94d" width="300">
 </p>
 
 <h3 align="center">All in one solution for academic planning</h3>
 <br/>
 
-**Scholar's Saga** is your ideal solution for academic planning and communication. It also come with enhancement of trending AI assistant. 
+**Scholar's Saga** is your ideal solution for academic planning and communication. It also come with enhancement of trending AI assistant. Drag and drop education plan builder and multiple plan saver for comprehensive academic plan in all kinds of sceinario. Easy appointment scheduler provides extra flexibility to student and counselor when it comes to plan creation, plan update or even career planning. 
 
 <a href="_">
 <img src="_" title="main screenshot">
@@ -26,12 +24,11 @@
 
 ## Links
 
-- [Documentation](https://__)
 - [Deployment](https://__)
 - [Demo](https://github.com/LilithLucifer3x6/Scholars-Saga/new/main?filename=README.md#demo)
 - [Features](https://github.com/LilithLucifer3x6/Scholars-Saga/new/main?filename=README.md#features)
 - [Getting-Started](#gettingstarted)
-- [Contributing](https://immich.app/docs/overview/support-the-project)
+- [Contributing](https:_)
 
 ## Demo
 
@@ -55,13 +52,13 @@ Access the demo [here](https://__). The demo is running on _.
 ## Features
 - Education plan duilder
 - AI assistant for education plan
-- 
-
+- User authentication and authorization
+- Color theme adaptor
+- Class schedule
 
 ## 
 
 
-## Repository activity
+## Contributing
 
-![Activities]("https://repobeats.axiom.co link")
 
