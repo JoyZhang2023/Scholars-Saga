@@ -5,7 +5,7 @@ import NavbarCounselor from "@/components/Navbar_counselor";
 import { Typography } from "@mui/material";
 import { PrismaClient } from "@prisma/client";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/lib/auth";
 
 const prisma = new PrismaClient();
 
