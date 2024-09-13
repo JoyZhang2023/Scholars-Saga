@@ -7,14 +7,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model appointments {
-  id           Int      @id @default(autoincrement())
-  selectedDate DateTime
-  selectedTime String
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime
-}
-
 model classes {
   id                         Int                  @id @default(autoincrement())
   class_section              String               @db.VarChar(5)
@@ -48,6 +40,63 @@ model counselors {
   profile_picture String? @db.VarChar(255)
 }
 
+model students {
+  id              Int          @id @default(autoincrement())
+  first_name      String       @db.VarChar(100)
+  last_name       String       @db.VarChar(100)
+  email           String       @unique @db.VarChar(255)
+  user_type       String       @db.VarChar(50)
+  enrollment_date DateTime     @db.Date
+  degree_path     String       @db.VarChar(100)
+  profile_picture String?      @db.VarChar(255)
+  password        String       @db.VarChar(255)
+  edu_plan        edu_plan[]
+  enrollment      enrollment[]
+
+  @@index([email])
+}
+
+model appointments {
+  id           Int      @id @default(autoincrement())
+  selectedDate DateTime
+  selectedTime String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model enrollment {
+  student_id  Int
+  class_id    Int
+  enrolled_at DateTime @default(now())
+  classes     classes  @relation(fields: [class_id], references: [id])
+  students    students @relation(fields: [student_id], references: [id])
+
+  @@id([student_id, class_id])
+  @@unique([student_id, class_id])
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model theme_settings {
+  id                 Int     @id
+  primary_color      String? @db.VarChar(7)
+  secondary_color    String? @db.VarChar(7)
+  text_primary       String? @db.VarChar(7)
+  text_secondary     String? @db.VarChar(7)
+  background_default String? @db.VarChar(7)
+
+  @@ignore
+}
+
+model users {
+  id         Int        @id @default(autoincrement())
+  email      String     @unique(map: "unique_email") @db.VarChar(100)
+  password   String     @db.VarChar
+  role       role_enum?
+  profile_id Int?
+}
+
 model edu_plan {
   id               Int                @id @default(autoincrement())
   year             String?            @db.VarChar
@@ -69,50 +118,6 @@ model edu_plan_courses {
   edu_plan    edu_plan? @relation(fields: [edu_plan_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "edu_plan_relation")
 }
 
-model enrollment {
-  student_id  Int
-  class_id    Int
-  enrolled_at DateTime @default(now())
-  classes     classes  @relation(fields: [class_id], references: [id])
-  students    students @relation(fields: [student_id], references: [id])
-
-  @@id([student_id, class_id])
-  @@unique([student_id, class_id])
-}
-
-model students {
-  id              Int          @id @default(autoincrement())
-  first_name      String       @db.VarChar(100)
-  last_name       String       @db.VarChar(100)
-  email           String       @unique @db.VarChar(255)
-  user_type       String       @db.VarChar(50)
-  enrollment_date DateTime     @db.Date
-  degree_path     String       @db.VarChar(100)
-  profile_picture String?      @db.VarChar(255)
-  password        String       @db.VarChar(255)
-  edu_plan        edu_plan[]
-  enrollment      enrollment[]
-
-  @@index([email])
-}
-
-model theme_settings {
-  id                 Int     @id
-  primary_color      String? @db.VarChar(7)
-  secondary_color    String? @db.VarChar(7)
-  text_primary       String? @db.VarChar(7)
-  text_secondary     String? @db.VarChar(7)
-  background_default String? @db.VarChar(7)
-}
-
-model users {
-  id         Int        @id @default(autoincrement())
-  email      String     @unique(map: "unique_email") @db.VarChar(100)
-  password   String     @db.VarChar
-  role       role_enum?
-  profile_id Int?
-}
-
 enum class_day_enum {
   Monday
   Tuesday
@@ -121,15 +126,15 @@ enum class_day_enum {
   Friday
 }
 
-enum role_enum {
-  Admin
-  Counselor
-  Student
-}
-
 enum terms_offered_enum {
   Winter
   Spring
   Summer
   Fall
+}
+
+enum role_enum {
+  Admin
+  Counselor
+  Student
 }

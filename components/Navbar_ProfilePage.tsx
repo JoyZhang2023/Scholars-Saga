@@ -13,7 +13,8 @@ import ListItemText from '@mui/material/ListItemText';
 import Toolbar from '@mui/material/Toolbar';
 import MenuIcon from '@mui/icons-material/Menu';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { useAuth } from '../context/authContext';  // Import useAuth to handle the logout
+import { signOut } from "next-auth/react";
+// import { useAuth } from '../context/authContext';  // Import useAuth to handle the logout
 
 const drawerWidth = 240;
 
@@ -27,7 +28,7 @@ interface Props {
 export default function Navbar_ProfilePage() {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [isClosing, setIsClosing] = React.useState(false);
-  const { logout } = useAuth();
+  // const { logout } = useAuth();
 
   const handleDrawerClose = () => {
     setIsClosing(true);
@@ -67,7 +68,7 @@ export default function Navbar_ProfilePage() {
       {/* Push the logout button to the bottom */}
       <Box sx={{ flexGrow: 1 }} />
       <Divider />
-      <ListItemButton onClick={logout} sx={{ mt: 'auto' }}>
+      <ListItemButton onClick={()=> {signOut()}} sx={{ mt: 'auto' }}>
         <ListItemIcon>
           <LogoutIcon />
         </ListItemIcon>
