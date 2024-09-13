@@ -1,3 +1,4 @@
+import { enrollment } from "@prisma/client";
 import prisma from "../../../lib/prisma";
 import { NextRequest, NextResponse } from 'next/server';
 
@@ -20,9 +21,8 @@ export async function POST(request: NextRequest) {
             return new NextResponse('Invalid student id or class id', { status: 404 });
         }
 
-        const existingEnrollment = await prisma.enrollment.findUnique({
+        const existingEnrollment = await prisma.enrollment.findMany({
             where: {
-                    id:Number(studentIdNumber+classIdNumber),
                     student_id: studentIdNumber,
                     class_id: classIdNumber,
             },
@@ -35,7 +35,6 @@ export async function POST(request: NextRequest) {
         // Proceed to create the new enrollment
         const newEnrollment = await prisma.enrollment.create({
             data: {
-                id: Number(studentIdNumber+classIdNumber),
                 student_id: studentIdNumber,
                 class_id: classIdNumber,
             },
