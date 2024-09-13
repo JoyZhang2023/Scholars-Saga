@@ -39,7 +39,8 @@ const ProfileCard: React.FC = () => {
     >
       <Avatar sx={{ width: 100, height: 100, mb: 2 }}>
         <Image
-          src={user && user.profile_picture ? user.profile_picture : "/images/generic_profile_pic.png"}
+          // src={user && user.profile_picture ? user.profile_picture : "/images/generic_profile_pic.png"}
+          src={"/images/generic_profile_pic.png"}
           alt="Profile Picture"
           width={100}
           height={100}

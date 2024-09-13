@@ -4,6 +4,13 @@ import { Box, Grid } from '@mui/material';
 import LoadPlanForm from "@/components/Load_Edu_Plan";
 import PlanBuilder from "@/components/Educational_Plan_Creator";
 
+interface CoursesByTerm {
+    [term: string]: {
+        id: number;
+        content: string;
+        credits: number;
+    }[];
+}
 
 const EduPlanCreator: React.FC = () => {
     const [allCoursesByYear, setAllCoursesByYear] = useState<{ [year: string]: CoursesByTerm }>({
