@@ -13,6 +13,7 @@ export async function POST(request: Request) {
         enrollment_date: new Date(enrollment_date),
         degree_path,
         profile_picture, // Ensure this field is correctly added
+        password: "",
       },
     });
 
