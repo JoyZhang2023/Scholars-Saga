@@ -1,6 +1,6 @@
 import { getServerSession } from 'next-auth';
 import SignInForm from './form';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { authOptions } from '@/lib/auth';
 import { Box, Container, Typography, TextField, Button } from '@mui/material';
 import styles from './signinform.module.css';
 
