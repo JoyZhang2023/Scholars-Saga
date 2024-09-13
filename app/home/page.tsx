@@ -5,14 +5,26 @@ import Link from 'next/link';
 import ProfileCard from '../../components/ProfileCard';
 import { Box, Container, Typography, Grid, Link as MUILink } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
+import { useSession } from 'next-auth/react';
+import SignOut from '@/components/SignOut';
 
 export default function Home() {
   const theme = useTheme(); // TODO: incorporate MUI theme when ready
+
+  const session = useSession();
 
   return (
     <Container maxWidth="lg">
       <Box sx={{ display: 'flex', gap: 2, flexDirection: 'row' }}>
         <ProfileCard />
+        <nav>
+          {!!session && <SignOut />}
+          {!session &&
+          <Link href="/auth/sign-in">
+            Sign In
+          </Link>
+          }
+        </nav>
 
         <Box sx={{ flex: 1 }}>
           {/* Banner Section */}

@@ -6,6 +6,7 @@ import ToDosCard from './ToDosCard';
 import ResourcesCard from './ResourcesCard';
 import UpcomingEventsCard from './UpcomingEventsCard';
 import BulletinsCard from './BulletinsCard';
+import SignOut from '@/components/SignOut';
 
 const AdminDashboard = () => {
   return (
@@ -18,7 +19,10 @@ const AdminDashboard = () => {
         <div className="navbar-title">Admin Dashboard</div>
         <div className="navbar-buttons">
           <Link href="/home" className="nav-button">Home</Link>
-          <button className="nav-button">Log Out</button>
+          <button className="nav-button">{<SignOut/>}</button>
+        </div>
+        <div>          
+          <Link href='/auth/sign-up' className='nav-button'>Create User</Link>
         </div>
       </nav>
       <div className="cards-container">

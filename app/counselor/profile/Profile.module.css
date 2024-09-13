@@ -47,7 +47,6 @@
   border-color: #0070f3;
 }
 
-
 .description {
   margin-bottom: 20px;
 }
@@ -74,12 +73,14 @@
   gap: 20px;
 }
 .card {
-  padding: 20px;
+  margin-top: 10%;
   border: 1px solid #eaeaea;
   border-radius: 10px;
   transition: all 0.2s;
   text-decoration: none;
   color: inherit;
+  min-width: 800px;
+  height: 600px;
 }
 .card:hover {
   border-color: #0070f3;
