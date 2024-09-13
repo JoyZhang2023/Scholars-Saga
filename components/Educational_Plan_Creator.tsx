@@ -317,7 +317,7 @@ const PlanBuilder: React.FC<PlanBuilderProps> = ({ allCoursesByYear, setAllCours
                                                               onDelete={() => handleDeleteCourse(term, course.id)} />
                                             ))
                                         ) : (
-                                            <SortableItem id={`${term}-placeholder`} content="Drag item here"
+                                            <SortableItem id={Number(`${term}-placeholder`)} content="Drag item here"
                                                           isPlaceholder={true} />
                                         )}
                                     </SortableContext>

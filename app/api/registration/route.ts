@@ -22,10 +22,9 @@ export async function POST(request: NextRequest) {
 
         const existingEnrollment = await prisma.enrollment.findUnique({
             where: {
-                student_id_class_id: {
+                    id:Number(studentIdNumber+classIdNumber),
                     student_id: studentIdNumber,
                     class_id: classIdNumber,
-                },
             },
         });
 
@@ -36,13 +35,14 @@ export async function POST(request: NextRequest) {
         // Proceed to create the new enrollment
         const newEnrollment = await prisma.enrollment.create({
             data: {
+                id: Number(studentIdNumber+classIdNumber),
                 student_id: studentIdNumber,
                 class_id: classIdNumber,
             },
         });
 
         return new NextResponse(JSON.stringify(newEnrollment), { status: 201 });
-    } catch (error) {
+    } catch (error: any) {
         console.error('Error creating enrollment:', error);
         return new NextResponse(`Error creating enrollment: ${error.message}`, { status: 500 });
     }
