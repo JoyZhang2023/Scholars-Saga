@@ -6,8 +6,10 @@ import ProfileCard from '../../components/ProfileCard';
 import { Box, Container, Typography, Grid, Link as MUILink } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { useSession } from 'next-auth/react';
+import Image from 'next/image';
 import SignOut from '@/components/SignOut';
 import { useRouter } from 'next/navigation';
+import { Bold } from 'lucide-react';
 
 export default function Home() {
   const theme = useTheme(); // TODO: incorporate MUI theme when ready
@@ -40,25 +42,27 @@ export default function Home() {
             sx={{
               display: 'flex',
               alignItems: 'center',
-              justifyContent: 'space-between',
+              // justifyContent: 'space-between',
               backgroundColor: theme.palette.background.paper,
               padding: theme.spacing(2),
-              marginBottom: theme.spacing(3),
+              marginBottom: theme.spacing(0),
             }}
           >
-            {/* <Box
-              component="img"
-              src="/autumn banner.jpg"
-              alt="Autumn Banner"
-              sx={{
-                height: 100,
-                objectFit: 'cover',
-                borderRadius: theme.shape.borderRadius,
-              }}
-            /> */}
-            <Typography variant="h4" sx={{ marginLeft: theme.spacing(2) }}>
-              Scholar's Saga
-            </Typography>
+              <Image
+                src={"/images/logo.png"}
+                alt="Logo"
+                width={150}
+                height={150}
+                objectFit="cover"
+              />
+            <Box>
+              <Typography variant="h4" gutterBottom sx={{ paddingLeft: 3, color: theme.typography.h1, marginBottom:0}}>
+                  Scholar's Saga
+              </Typography>
+              <Typography variant='h6' sx={{ paddingLeft: 15, marginTop: 0}} color='#046c13' fontWeight='fontWeightMedium'>
+                All in one solution for academic planning
+              </Typography>
+            </Box>
           </Box>
 
           {/* Links Row */}
@@ -67,7 +71,8 @@ export default function Home() {
               <MUILink
                 key={text}
                 component={Link}
-                href={`/${text.toLowerCase()}`}
+                // href={`/${text.toLowerCase()}`}
+                href='/splashpage'
                 underline="none"
                 sx={{
                   padding: theme.spacing(1),
@@ -93,12 +98,36 @@ export default function Home() {
                     boxShadow: theme.shadows[2],
                   }}
                 >
-                  <Typography variant="h6">{section}</Typography>
+                  <MUILink href='/splashpage' underline='hover' variant='h6'>{section}</MUILink>
+                  {/* <Typography variant="h6" >{section}</Typography> */}
                 </Box>
               </Grid>
             ))}
           </Grid>
         </Box>
+      </Box>
+      {/* <Box
+        component="img"
+        src={"/images/autumn banner.jpg"}
+        alt="Autumn Banner"
+        sx={{
+          maxWidth:'lg',
+          height: 100,
+          objectFit: 'cover',
+          borderRadius: theme.shape.borderRadius,
+        }}
+      /> */}
+      <Box                   
+        sx={{
+          marginTop: 3,
+          padding: theme.spacing(2),
+          backgroundColor: '#eff9e9',
+          borderRadius: theme.shape.borderRadius,
+          boxShadow: theme.shadows[2],
+        }}>
+        <Typography variant='body1'>
+         Scholar's Saga is your ideal solution for academic planning and communication. It also come with enhancement of trending AI assistant. Drag and drop education plan builder and multiple plan saver for comprehensive academic plan in all kinds of sceinario. Easy appointment scheduler provides extra flexibility to student and counselor when it comes to plan creation, plan update or even career planning.
+        </Typography>
       </Box>
     </Container>
   );

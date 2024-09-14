@@ -51,17 +51,26 @@ const ProfileCard: React.FC = () => {
         {user.first_name !== '' ? `Welcome, ${user.first_name}!` : 'Welcome!'}
       </Typography>
       <Button
+          variant="outlined"
+          color="primary"
+          component={Link}
+          sx={{ mt: 1}}
+          href='https://github.com/LilithLucifer3x6/Scholars-Saga'
+        >
+          GitHub Repo
+        </Button>
+      {/* <Button
         variant="outlined"
         color="primary"
         component={Link}
         href={user ? "/profile" : "/login"}
       >
         {user ? "View Profile" : "Login"}
-      </Button>
+      </Button> */}
         <Button
           variant="contained"
           color="primary"
-          sx={{ mt: 1 }}
+          sx={{ mt: 2 }}
           href='/auth/sign-in'
         >
           Sign In
