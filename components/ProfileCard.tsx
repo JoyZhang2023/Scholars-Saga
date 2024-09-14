@@ -67,6 +67,14 @@ const ProfileCard: React.FC = () => {
       >
         {user ? "View Profile" : "Login"}
       </Button> */}
+              {/* <nav>
+          {!!session && <SignOut />}
+          {!session &&
+          <Link href="/auth/sign-in">
+            Sign In
+          </Link>
+          }
+        </nav> */}
         <Button
           variant="contained"
           color="primary"

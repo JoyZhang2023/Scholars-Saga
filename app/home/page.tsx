@@ -2,39 +2,88 @@
 
 import React from 'react';
 import Link from 'next/link';
-import ProfileCard from '../../components/ProfileCard';
-import { Box, Container, Typography, Grid, Link as MUILink } from '@mui/material';
+import { Box, Container, Typography, Grid, Link as MUILink, Button, Avatar, } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import { useSession } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
-import SignOut from '@/components/SignOut';
-import { useRouter } from 'next/navigation';
-import { Bold } from 'lucide-react';
 
 export default function Home() {
   const theme = useTheme(); // TODO: incorporate MUI theme when ready
 
+  let dashboardLink = 'https://github.com/JoyZhang2023/Scholars-Saga/tree/main', iconLabel='GitHub Repo';
+
   const session = useSession();
-  const router = useRouter();
   if (session) {
-    if(session.data?.user.role === 'Admin') {
-      router.push('/admin/admin-dashboard')
-      router.refresh()
+    if (session.data?.user.role === 'Admin') {
+      iconLabel = "Admin Dashboard"
+      dashboardLink = '/admin/admin-dashboard'
+    } else if(session.data?.user.role === 'Counselor') {
+      iconLabel = "Counselor Dashboard"
+      dashboardLink = '/counselor/dashboard'
+    } else if(session.data?.user.role === 'Student') {
+      iconLabel = "Student Dashboard"
+      dashboardLink = '/student/student-dashboard'
     }
   }
 
   return (
     <Container maxWidth="lg">
       <Box sx={{ display: 'flex', gap: 2, flexDirection: 'row' }}>
-        <ProfileCard />
-        {/* <nav>
-          {!!session && <SignOut />}
-          {!session &&
-          <Link href="/auth/sign-in">
-            Sign In
-          </Link>
-          }
-        </nav> */}
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            backgroundColor: 'white',
+            borderRadius: '8px',
+            boxShadow: 3,
+            p: 2,
+            width: '200px',
+            textAlign: 'center',
+          }}
+        >
+        <Avatar sx={{ width: 100, height: 100, mb: 2 }}>
+          <Image
+            src={"/images/generic_profile_pic.png"}
+            alt="Profile Picture"
+            width={100}
+            height={100}
+            objectFit="cover"
+          />
+        </Avatar>
+        <Typography variant="h6" gutterBottom>
+          {session.status === 'authenticated'  ? `Welcome, ${session.data?.user.role}!` : 'Welcome!'}
+        </Typography>
+        <Button
+          variant="outlined"
+          color="primary"
+          component={Link}
+          sx={{ mt: 1}}
+          href={dashboardLink}
+        >
+          {iconLabel}
+        </Button>
+        { session.status === 'authenticated' ?
+        <Button
+        variant="contained"
+        color="primary"
+        sx={{ mt: 2 }}
+        onClick={()=> {signOut()}}
+      >
+        Sign Out
+      </Button> :
+      <Button
+      variant="contained"
+      color="primary"
+      sx={{ mt: 2 }}
+      href='/auth/sign-in'
+    >
+      Sign In
+    </Button>
+      }
+
+      </Box>
+
 
         <Box sx={{ flex: 1 }}>
           {/* Banner Section */}
