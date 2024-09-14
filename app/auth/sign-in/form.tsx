@@ -8,6 +8,8 @@ import styles from './signinform.module.css';
 
 export default function SignInForm() {
 
+  const router = useRouter();
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -17,21 +19,27 @@ export default function SignInForm() {
       redirect: false,
     });
 
+
+    if (!response?.error) {
+      router.push('/');
+      router.refresh();
+    }
+   
   };
 
-  const { data: session} = useSession();
-  const router = useRouter();
+  // const { data: session} = useSession();
 
-  if (session?.user?.role === 'Admin') {
-    router.push('/admin/admin-dashboard');
-    router.refresh();
-  } else if (session?.user.role === 'Counselor') {
-    router.push('/counselor/dashboard');
-    router.refresh();
-  } else if (session?.user.role === 'Student') {
-    router.push('/student/student-dashboard')
-    router.refresh();
-  }
+
+  // if (session?.user?.role === 'Admin') {
+  //   router.push('/admin/admin-dashboard');
+  //   router.refresh();
+  // } else if (session?.user.role === 'Counselor') {
+  //   router.push('/counselor/dashboard');
+  //   router.refresh();
+  // } else if (session?.user.role === 'Student') {
+  //   router.push('/student/student-dashboard')
+  //   router.refresh();
+  // }
 
   return (
     <div>

@@ -4,23 +4,25 @@ import React, { useEffect, useState } from 'react';
 import ProfilePage from '../../components/ProfilePage';
 import Navbar_ProfilePage from '../../components/Navbar_ProfilePage';
 import { Box, Container, Paper } from '@mui/material';
-import { useAuth } from '../../context/authContext';
+// import { useAuth } from '../../context/authContext';
+import { useSession } from 'next-auth/react';
 
 const ProfilePageContainer = () => {
-  const { user: authUser, logout } = useAuth();
+  // const { user: authUser, logout } = useAuth();
+  const { data: session } = useSession();
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchUser = async () => {
-      if (!authUser) {
+      if (!session) {
         setLoading(false);
         return;
       }
 
       setLoading(true);
       try {
-        const response = await fetch(`/api/profile?id=${authUser.id}&user_type=${authUser.user_type}`);
+        const response = await fetch(`/api/profile?id=${session.user.profile_id}&user_type=${session.user.role}`);
         if (!response.ok) {
           throw new Error('Network response was not okay');
         }
@@ -34,10 +36,10 @@ const ProfilePageContainer = () => {
     };
 
     fetchUser();
-  }, [authUser]);
+  }, [session?.user]);
 
   if (loading) return <p>Loading...</p>;
-  if (!authUser) return <p>Please log in to view your profile.</p>;
+  if (!session) return <p>Please log in to view your profile.</p>;
   if (!user) return <p>No user data found.</p>;
 
   return (

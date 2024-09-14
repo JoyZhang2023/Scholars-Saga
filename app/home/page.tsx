@@ -8,12 +8,20 @@ import { useTheme } from '@mui/material/styles';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import SignOut from '@/components/SignOut';
+import { useRouter } from 'next/navigation';
 import { Bold } from 'lucide-react';
 
 export default function Home() {
   const theme = useTheme(); // TODO: incorporate MUI theme when ready
 
   const session = useSession();
+  const router = useRouter();
+  if (session) {
+    if(session.data?.user.role === 'Admin') {
+      router.push('/admin/admin-dashboard')
+      router.refresh()
+    }
+  }
 
   return (
     <Container maxWidth="lg">

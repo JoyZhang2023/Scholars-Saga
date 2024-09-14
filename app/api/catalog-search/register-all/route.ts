@@ -25,8 +25,10 @@ export async function POST(request: Request) {
       }
 
       // Check if class is full
-      if (classInfo.current_enrollments >= classInfo.class_size) {
-        return NextResponse.json({ message: `Class ${classInfo.class_name} is full` }, { status: 400 });
+      if (classInfo.current_enrollments && classInfo.class_size) {
+        if (classInfo.current_enrollments >= classInfo.class_size) {
+          return NextResponse.json({ message: `Class ${classInfo.class_name} is full` }, { status: 400 });
+        }
       }
 
       // Check for existing enrollment

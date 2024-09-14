@@ -1,16 +1,15 @@
-import { getServerSession } from 'next-auth';
+'use server'
 import SignInForm from './form';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
-import { Box, Container, Typography, TextField, Button } from '@mui/material';
 import styles from './signinform.module.css';
+import { authOptions } from '@/lib/auth';
+import { getServerSession } from 'next-auth';
+import { redirect } from 'next/navigation';
 
 export default async function LoginPage() {
-  const session = await getServerSession(authOptions);
-  console.log(session);
 
   return (
     <div className={styles.body}>
-      <SignInForm /> 
+      <SignInForm />
     </div>
   );
 }
