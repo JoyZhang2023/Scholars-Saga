@@ -15,8 +15,8 @@ export async function POST(request: Request) {
         user_type,
         enrollment_date: new Date(enrollment_date), // Ensure correct date format
         degree_path,
-        profile_picture, // Optional field
-        password, // Required field
+        profile_picture, // Ensure this field is correctly added
+        password: "",
       },
     });
 

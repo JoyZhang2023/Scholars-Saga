@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { AuthProvider } from '../context/authContext';
-import { ThemeProvider } from "@/styles/theme";
+import {ThemeProvider} from "@/styles/theme";
+import { Provider } from "@/context/sessionProvider"; //get user data from session
+
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,14 +24,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <AuthProvider>
-          <ThemeProvider>
-            <div className="flex">
-              {children}
-            </div>
-        </ThemeProvider>
-      </AuthProvider>
-    </body>
-    </html >
+        <Provider>
+          <div className='flex'>
+              <ThemeProvider>
+                {children}
+              </ThemeProvider>
+          </div>
+        </Provider>
+      </body>
+    </html>
   )
 }

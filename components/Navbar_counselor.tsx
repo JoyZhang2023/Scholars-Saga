@@ -1,3 +1,4 @@
+'use client'
 import * as React from 'react';
 import Link from 'next/link';
 import AppBar from '@mui/material/AppBar';
@@ -16,12 +17,14 @@ import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import next from 'next';
+import { UnlinkIcon } from 'lucide-react';
+import SignOut from './SignOut';
+import { Button } from '@mui/material';
 
 const drawerWidth = 240;
 
-const navItems = ["Home", "Student Search", "Class Search", "Settings"];
-const links = ["counselor-dashboard", "student-search", "", ""];  //TODO: update links
+const navItems = ["Home", "Profile", "Class Search", "Settings"];
+const links = ["dashboard", "profile", "", ""];  //TODO: update links
 
 interface Props {
   /**
@@ -68,7 +71,6 @@ export default function NavbarCounselor({header}: { header: String}) {
           </ListItem>
         ))}
       </List>
-      <Divider />
     </div>
   );
 
@@ -127,6 +129,9 @@ export default function NavbarCounselor({header}: { header: String}) {
           open
         >
           {drawer}
+          <Button startIcon={<UnlinkIcon />}>
+            <SignOut />
+          </Button>
         </Drawer>
       </Box>
     </Box>

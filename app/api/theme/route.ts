@@ -5,9 +5,9 @@ import prisma from "@/lib/prisma";
 // GET  to retrieve the theme settings
 export async function GET() {
     try {
-        console.log('Fetching theme settings...');
+        // console.log('Fetching theme settings...');
         const themeSettings = await prisma.theme_settings.findFirst();
-        console.log('Theme settings:', themeSettings);
+        // console.log('Theme settings:', themeSettings);
         if (!themeSettings) {
             return new Response('Theme settings not found', { status: 404 });
         }
@@ -22,7 +22,7 @@ export async function GET() {
 export async function POST(request: Request) {
     try {
         const data = await request.json();
-        console.log('Received data to save:', data);
+        // console.log('Received data to save:', data);
 
         const { primaryColor, secondaryColor, textPrimary, textSecondary, backgroundDefault } = data;
 
@@ -45,7 +45,7 @@ export async function POST(request: Request) {
             },
         });
 
-        console.log('Saved theme settings:', updatedThemeSettings);
+        // console.log('Saved theme settings:', updatedThemeSettings);
 
         return new Response(JSON.stringify(updatedThemeSettings), { status: 200 });
     } catch (error) {
