@@ -23,21 +23,21 @@ model classes {
   description                String               @db.VarChar
   credits                    Int?                 @db.SmallInt
   edu_plan_courses           edu_plan_courses[]
-  id                         Int                  @id @default(autoincrement())
-  class_section              String               @db.VarChar(5)
-  professor                  String               @db.VarChar(100)
   class_size                 Int?
   class_category             String               @db.VarChar(50)
   class_day                  class_day_enum[]
   class_end_time             DateTime             @db.Time(6)
   class_name                 String               @db.VarChar(100)
   class_start_time           DateTime             @db.Time(6)
+  credits                    Int?                 @db.SmallInt
   current_enrollments        Int?
+  description                String               @db.VarChar
   fulfill_major_requirements String[]
   terms_offered              terms_offered_enum[]
-  description                String               @db.VarChar
-  credits                    Int?                 @db.SmallInt
   edu_plan_courses           edu_plan_courses[]
+  enrollment                 enrollment[]
+
+  @@index([class_name, class_section])
 }
 
 model counselors {
@@ -53,16 +53,19 @@ model counselors {
 }
 
 model students {
-  id              Int        @id @default(autoincrement())
-  first_name      String     @db.VarChar(100)
-  last_name       String     @db.VarChar(100)
-  email           String     @unique @db.VarChar(255)
-  user_type       String     @db.VarChar(50)
-  enrollment_date DateTime   @db.Date
-  degree_path     String     @db.VarChar(100)
-  profile_picture String?    @db.VarChar(255)
-  password        String     @db.VarChar(255)
+  id              Int          @id @default(autoincrement())
+  first_name      String       @db.VarChar(100)
+  last_name       String       @db.VarChar(100)
+  email           String       @unique @db.VarChar(255)
+  user_type       String       @db.VarChar(50)
+  enrollment_date DateTime     @db.Date
+  degree_path     String       @db.VarChar(100)
+  profile_picture String?      @db.VarChar(255)
+  password        String       @db.VarChar(255)
   edu_plan        edu_plan[]
+  enrollment      enrollment[]
+
+  @@index([email])
 }
 
 model appointments {
@@ -107,9 +110,8 @@ model edu_plan {
   id               Int                @id @default(autoincrement())
   year             String             @db.VarChar
   created_at       DateTime?          @db.Timestamp(6)
-  student_id       Int
-  plan_name        String             @db.VarChar(100)
-  students         students           @relation(fields: [student_id], references: [id], onDelete: Cascade, map: "student_id_relation")
+  student_id       Int?
+  students         students?          @relation(fields: [student_id], references: [id], onDelete: Cascade, map: "student_id_relation")
   edu_plan_courses edu_plan_courses[]
 }
 
@@ -121,6 +123,13 @@ model edu_plan_courses {
   year        String?   @db.VarChar
   classes     classes?  @relation(fields: [class_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "class_id_relation")
   edu_plan    edu_plan? @relation(fields: [edu_plan_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "edu_plan_relation")
+}
+
+model enrollment {
+  id            Int       @id
+  student_id    Int
+  class_id      Int
+  registered_at DateTime? @default(now()) @db.Timestamp(6)
 }
 
 enum class_day_enum {

@@ -1,4 +1,6 @@
-import prisma from "../../../lib/prisma";
+'use client';
+
+import prisma from "@/lib/prisma";
 
 // GET  to retrieve the theme settings
 export async function GET() {

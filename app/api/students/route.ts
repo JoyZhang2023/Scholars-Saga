@@ -1,18 +1,22 @@
-import prisma from "../../../lib/prisma";
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
 
 export async function POST(request: Request) {
   try {
-    const { first_name, last_name, email, user_type, enrollment_date, degree_path, profile_picture } = await request.json();
+    const { first_name, last_name, email, user_type, enrollment_date, degree_path, profile_picture, password } = await request.json();
 
+    // Ensure that the fields match the schema and are correctly passed
     const newStudent = await prisma.students.create({
       data: {
         first_name,
         last_name,
         email,
         user_type,
-        enrollment_date: new Date(enrollment_date),
+        enrollment_date: new Date(enrollment_date), // Ensure correct date format
         degree_path,
-        profile_picture, // Ensure this field is correctly added
+        profile_picture, // Optional field
+        password, // Required field
       },
     });
 
