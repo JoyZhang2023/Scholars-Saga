@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 import type { AppProps } from 'next/app';
 import React from 'react';
 import { AuthProvider } from '../context/authContext';
